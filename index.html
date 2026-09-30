@@ -1,43 +1,158 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="default">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wuli新传热点知识库</title>
+<title>wuli新传考研热点知识库</title>
 <style>
-  :root{
-    --bg:#f7f5f1;
-    --surface:#ffffff;
-    --ink:#191917;
-    --ink-soft:#6e6960;
-    --line:#e7e2d9;
-    --brand:#2c5a4c;
-    --brand-soft:#e7efeb;
-    --accent:#c96a35;
-    --radius:20px;
+  /* ==================== 主题变量 ==================== */
+  html[data-theme="default"]{
+    --bg:#f7f5f1; --surface:#ffffff; --ink:#191917; --ink-soft:#6e6960;
+    --line:#e7e2d9; --brand:#2c5a4c; --brand-soft:#e7efeb; --accent:#c96a35;
     --tag-bg:#f0ede6;
-    --font-serif:"Noto Serif SC","Source Han Serif SC","Songti SC",
-                 "SimSun",Georgia,serif;
+    --card-border:1px solid var(--line);
+    --card-shadow:0 1px 2px rgba(0,0,0,.03), 0 8px 24px -16px rgba(0,0,0,.14);
+    --card-hover-shadow:0 12px 30px -20px rgba(0,0,0,.3);
+    --font:"Noto Serif SC","Source Han Serif SC","Songti SC","SimSun",Georgia,serif;
+    --radius-lg:20px; --radius-md:16px; --radius-sm:10px;
   }
-  @media (prefers-color-scheme: dark){
-    :root{
-      --bg:#131311; --surface:#1c1c19; --ink:#eceae4; --ink-soft:#948e84;
-      --line:#2d2d28; --brand:#7cc2a4; --brand-soft:#1d2b26; --accent:#e0864f;
-      --tag-bg:#26261f;
-    }
+
+  html[data-theme="night"]{
+    --bg:#0f1115; --surface:#1a1d24; --ink:#e9ecef; --ink-soft:#8b93a0;
+    --line:#2a2f3a; --brand:#7fc6a3; --brand-soft:#1d2b26; --accent:#e8a06a;
+    --tag-bg:#232830;
+    --card-border:1px solid #2a2f3a;
+    --card-shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 28px -20px rgba(0,0,0,.7);
+    --card-hover-shadow:0 16px 34px -22px rgba(0,0,0,.9);
+    --font:"Noto Serif SC","Source Han Serif SC","Songti SC","SimSun",Georgia,serif;
+    --radius-lg:18px; --radius-md:14px; --radius-sm:9px;
   }
+
+  html[data-theme="ink"]{
+    --bg:#fafaf8; --surface:#ffffff; --ink:#161616; --ink-soft:#7a7a72;
+    --line:#dcdcd6; --brand:#2a2a2a; --brand-soft:#f0f0ee; --accent:#a44a2e;
+    --tag-bg:#f2f2ef;
+    --card-border:none;
+    --card-shadow:none;
+    --card-hover-shadow:none;
+    --font:"Noto Serif SC","Source Han Serif SC","Songti SC","SimSun",Georgia,serif;
+    --radius-lg:0; --radius-md:0; --radius-sm:0;
+  }
+
+  html[data-theme="pink"]{
+    --bg:#fef5f8; --surface:#ffffff; --ink:#3d2530; --ink-soft:#9c7a89;
+    --line:#f7e0e9; --brand:#e879a5; --brand-soft:#fdeaf1; --accent:#c95a7a;
+    --tag-bg:#fceef3;
+    --card-border:1px solid #f7e0e9;
+    --card-shadow:0 1px 2px rgba(200,120,150,.06), 0 10px 26px -18px rgba(200,120,150,.28);
+    --card-hover-shadow:0 14px 32px -20px rgba(200,120,150,.42);
+    --font:"Noto Serif SC","Source Han Serif SC","Songti SC","SimSun",Georgia,serif;
+    --radius-lg:22px; --radius-md:18px; --radius-sm:11px;
+  }
+
+  html[data-theme="retro"]{
+    --bg:#f1e8d4; --surface:#faf3e0; --ink:#2b2415; --ink-soft:#75695a;
+    --line:#c9b998; --brand:#8b2f0f; --brand-soft:#f0e2d4; --accent:#8b2f0f;
+    --tag-bg:#e8dcc3;
+    --card-border:none;
+    --card-shadow:none;
+    --card-hover-shadow:none;
+    --font:"Noto Serif SC","Source Han Serif SC","Songti SC","SimSun",Georgia,serif;
+    --radius-lg:2px; --radius-md:2px; --radius-sm:2px;
+  }
+
+  /* ==================== 基础布局 ==================== */
   *{ box-sizing:border-box; }
   html,body{ margin:0; padding:0; }
   body{
     background:var(--bg); color:var(--ink);
-    font-family:var(--font-serif);
+    font-family:var(--font);
     font-size:15.5px;
     line-height:1.75;
     -webkit-font-smoothing:antialiased;
     min-height:100vh;
+    transition:background .35s ease, color .35s ease;
   }
   a{ color:inherit; }
 
+  /* ==================== 主题抽屉（贴右边缘，可上下拖动） ==================== */
+  .theme-float{
+    position:fixed;
+    right:0;
+    top:60%;
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    height:46px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-right:none;
+    border-radius:999px 0 0 999px;
+    box-shadow:-6px 6px 22px -12px rgba(0,0,0,.28);
+    overflow:hidden;
+    transition:background .3s, border-color .3s, box-shadow .3s;
+    touch-action:none;
+    cursor:grab;
+    user-select:none;
+    -webkit-user-select:none;
+  }
+  .theme-float:hover{ border-color:var(--brand); }
+  .theme-float.dragging{
+    cursor:grabbing;
+    transition:none;
+    box-shadow:-8px 8px 28px -12px rgba(0,0,0,.4);
+  }
+
+  .tf-options{
+    display:flex;
+    align-items:center;
+    gap:2px;
+    max-width:0;
+    overflow:hidden;
+    padding:0;
+    opacity:0;
+    transition:max-width .38s cubic-bezier(.2,.7,.3,1),
+               padding .38s cubic-bezier(.2,.7,.3,1),
+               opacity .25s;
+  }
+  .theme-float.is-open .tf-options{
+    max-width:400px;
+    padding:0 6px 0 10px;
+    opacity:1;
+  }
+
+  .tf-options button{
+    flex:0 0 auto;
+    padding:6px 13px;
+    font-size:12.5px;
+    font-family:var(--font);
+    font-weight:600;
+    color:var(--ink-soft);
+    background:none;
+    border:none;
+    border-radius:999px;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:.2s;
+  }
+  .tf-options button:hover{ color:var(--brand); }
+  .tf-options button.is-active{ color:#fff; background:var(--brand); }
+
+  .tf-trigger{
+    flex:0 0 46px;
+    width:46px; height:46px;
+    display:grid; place-items:center;
+    background:none;
+    border:none;
+    cursor:pointer;
+    font-size:19px;
+    line-height:1;
+    padding:0;
+    transition:transform .3s;
+  }
+  .theme-float.is-open .tf-trigger{ transform:rotate(15deg); }
+
+  /* ==================== 顶栏 ==================== */
   .topbar{
     max-width:1080px; margin:0 auto; padding:26px 24px 0;
     display:flex; align-items:center; justify-content:space-between; gap:16px;
@@ -49,7 +164,7 @@
     background:none; border:none; cursor:pointer;
     color:var(--ink); font-family:inherit; padding:0;
   }
-  .brand .dot{ width:8px; height:8px; border-radius:50%; background:var(--brand); }
+  .brand .dot{ width:8px; height:8px; border-radius:50%; background:var(--brand); transition:background .3s; }
   .back{
     display:none;
     padding:7px 15px; font-size:13px;
@@ -60,6 +175,7 @@
   .back:hover{ color:var(--brand); border-color:var(--brand); }
   .back.is-show{ display:inline-block; }
 
+  /* ==================== 视图 ==================== */
   .view{ display:none; }
   .view.is-active{
     display:block;
@@ -73,7 +189,7 @@
   .wrap{ max-width:1080px; margin:0 auto; padding:0 24px 90px; }
   .wrap-narrow{ max-width:960px; margin:0 auto; padding:0 24px 90px; }
 
-  /* 首页 */
+  /* ==================== 首页 ==================== */
   .hero{ padding:6vh 0 0; max-width:760px; }
   .eyebrow{
     margin:0 0 18px;
@@ -101,28 +217,30 @@
     display:flex; flex-direction:column;
     min-height:240px; padding:30px;
     background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
+    border:var(--card-border);
+    border-radius:var(--radius-lg);
     text-align:left;
     cursor:pointer;
     font-family:inherit;
     color:var(--ink);
+    box-shadow:var(--card-shadow);
     transition:transform .32s cubic-bezier(.2,.7,.3,1),
-               box-shadow .32s, border-color .32s;
+               box-shadow .32s, border-color .32s, background .3s, border-radius .3s;
   }
   .entry:hover{
     transform:translateY(-4px);
     border-color:var(--brand);
-    box-shadow:0 22px 45px -28px rgba(0,0,0,.4);
+    box-shadow:var(--card-hover-shadow);
   }
   .entry-icon{
     width:48px; height:48px;
     display:grid; place-items:center;
-    border-radius:14px;
+    border-radius:calc(var(--radius-md) - 2px);
     background:var(--brand-soft); color:var(--brand);
-    transition:background .3s, color .3s;
+    transition:background .3s, color .3s, border-radius .3s;
   }
   .entry:hover .entry-icon{ background:var(--brand); color:#fff; }
+  html[data-theme="ink"] .entry:hover .entry-icon{ color:#fff; }
   .entry-title{
     margin:24px 0 8px;
     font-size:21px; font-weight:700; letter-spacing:-.01em;
@@ -149,117 +267,60 @@
     font-size:12.5px; color:var(--ink-soft);
   }
 
-  /* =====================================================
-     意见反馈（折叠版 · 单行显示）
-     ===================================================== */
-  .feedback{
-    margin-top:14px;
-  }
-
+  /* ==================== 意见反馈 ==================== */
+  .feedback{ margin-top:14px; }
   .feedback-toggle{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    width:100%;
-    padding:8px 0;
-    background:none;
-    border:none;
-    cursor:pointer;
-    font-family:inherit;
-    font-size:13px;
-    color:var(--ink-soft);
-    text-align:left;
-    transition:color .2s;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:12px; width:100%; padding:8px 0;
+    background:none; border:none; cursor:pointer;
+    font-family:inherit; font-size:13px; color:var(--ink-soft);
+    text-align:left; transition:color .2s;
   }
   .feedback-toggle:hover{ color:var(--brand); }
-
-  /* 关键：不让文字换行 */
   .feedback-toggle .ft-text{
-    line-height:1.6;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    flex:1;
-    min-width:0;
+    line-height:1.6; white-space:nowrap; overflow:hidden;
+    text-overflow:ellipsis; flex:1; min-width:0;
   }
-  .feedback-toggle .ft-text .sep{
-    margin:0 6px;
-    opacity:.45;
-  }
+  .feedback-toggle .ft-text .sep{ margin:0 6px; opacity:.45; }
   .feedback-toggle .ft-arrow{
-    flex:0 0 auto;
-    font-size:14px;
-    color:var(--ink-soft);
+    flex:0 0 auto; font-size:14px; color:var(--ink-soft);
     transition:transform .3s, color .3s;
-    display:inline-block;
   }
-  .feedback-toggle.is-open .ft-arrow{
-    transform:rotate(45deg);
-    color:var(--brand);
-  }
+  .feedback-toggle.is-open .ft-arrow{ transform:rotate(45deg); color:var(--brand); }
   .feedback-toggle.is-open{ color:var(--brand); }
-
   .feedback-panel{
-    display:none;
-    padding:14px 0 4px;
+    display:none; padding:14px 0 4px;
     animation:fadeUp .3s cubic-bezier(.2,.7,.3,1) both;
   }
   .feedback-panel.is-open{ display:block; }
-
   .feedback-input{
-    display:block;
-    width:100%;
-    min-height:80px;
-    padding:11px 14px;
-    font-family:inherit;
-    font-size:14px;
-    line-height:1.7;
-    color:var(--ink);
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:10px;
-    resize:vertical;
-    outline:none;
-    transition:border-color .2s;
+    display:block; width:100%; min-height:80px;
+    padding:11px 14px; font-family:inherit; font-size:14px;
+    line-height:1.7; color:var(--ink); background:var(--surface);
+    border:1px solid var(--line); border-radius:var(--radius-sm);
+    resize:vertical; outline:none; transition:border-color .2s;
   }
   .feedback-input:focus{ border-color:var(--brand); }
   .feedback-input::placeholder{ color:var(--ink-soft); opacity:.65; }
-
   .feedback-actions{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    margin-top:10px;
-    flex-wrap:wrap;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:12px; margin-top:10px; flex-wrap:wrap;
   }
   .feedback-send{
-    padding:7px 18px;
-    font-size:13px;
-    font-weight:600;
-    font-family:inherit;
-    color:#fff;
-    background:var(--brand);
-    border:none;
-    border-radius:999px;
-    cursor:pointer;
+    padding:7px 18px; font-size:13px; font-weight:600;
+    font-family:inherit; color:#fff; background:var(--brand);
+    border:none; border-radius:999px; cursor:pointer;
     transition:opacity .2s, transform .2s;
   }
   .feedback-send:hover{ opacity:.88; }
   .feedback-send:active{ transform:scale(.98); }
-  .feedback-send:disabled{ opacity:.5; cursor:not-allowed; }
-
   .feedback-hint{
-    font-size:12px;
-    color:var(--ink-soft);
-    transition:color .2s;
-    flex:1;
-    min-width:0;
+    font-size:12px; color:var(--ink-soft);
+    transition:color .2s; flex:1; min-width:0;
   }
   .feedback-hint.success{ color:var(--brand); font-weight:600; }
 
-  /* 通用页头 */
+  /* ==================== 页头 ==================== */
   .page-head{ padding:5.5vh 0 0; }
   .head-row{
     display:flex; align-items:baseline; justify-content:space-between;
@@ -281,17 +342,10 @@
   }
   .head-meta .sep{ margin:0 8px; opacity:.45; }
 
-  /* 月份 Tab */
-  .month-tabs{
-    margin:38px 0 0;
-    border-bottom:1px solid var(--line);
-  }
-  .tab-track{
-    display:flex; gap:0;
-    overflow-x:auto; scrollbar-width:none;
-  }
+  /* ==================== 月份 Tab ==================== */
+  .month-tabs{ margin:38px 0 0; border-bottom:1px solid var(--line); }
+  .tab-track{ display:flex; gap:0; overflow-x:auto; scrollbar-width:none; }
   .tab-track::-webkit-scrollbar{ display:none; }
-
   .tab{
     position:relative; flex:0 0 auto;
     padding:0 0 16px; margin-right:40px;
@@ -299,7 +353,6 @@
     font-family:inherit; transition:color .2s;
   }
   .tab:last-child{ margin-right:0; }
-
   .tab .en{
     display:block; font-family:inherit;
     font-size:17px; font-weight:700; letter-spacing:.18em;
@@ -316,13 +369,12 @@
   .tab.is-active .en{ color:var(--brand); }
   .tab.is-active::after{ transform:scaleX(1); }
 
-  /* 月份面板 */
+  /* ==================== 月份面板 ==================== */
   .month-panel{ display:none; margin-top:32px; }
   .month-panel.is-active{
     display:block;
     animation:fadeUp .35s cubic-bezier(.2,.7,.3,1) both;
   }
-
   .panel-intro{ margin:0 0 26px; }
   .intro-line1{
     margin:0 0 5px; font-size:15px; font-weight:600;
@@ -343,20 +395,45 @@
     border-radius:999px; letter-spacing:.02em;
   }
 
-  /* 事件卡片 */
+  /* ==================== 事件卡片 ==================== */
   .event-list{ display:grid; gap:14px; }
 
   .event-card{
     background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:16px;
+    border:var(--card-border);
+    border-radius:var(--radius-md);
     overflow:hidden;
-    transition:border-color .28s, box-shadow .28s;
+    box-shadow:var(--card-shadow);
+    transition:border-color .28s, box-shadow .28s, background .3s, border-radius .3s;
   }
   .event-card:hover{
     border-color:var(--brand);
-    box-shadow:0 12px 30px -20px rgba(0,0,0,.35);
+    box-shadow:var(--card-hover-shadow);
   }
+
+  html[data-theme="ink"] .event-card{
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    margin-top:-1px;
+  }
+  html[data-theme="ink"] .event-card:hover{
+    border-color:var(--brand);
+    box-shadow:none;
+  }
+  html[data-theme="ink"] .event-list{ gap:0; }
+
+  html[data-theme="retro"] .event-card{
+    border-top:1px solid #c9b998;
+    border-bottom:1px solid #c9b998;
+    border-left:none;
+    border-right:none;
+    margin-top:-1px;
+  }
+  html[data-theme="retro"] .event-card:hover{
+    border-color:#8b2f0f;
+    box-shadow:none;
+  }
+  html[data-theme="retro"] .event-list{ gap:0; }
 
   .event-header{
     display:flex; align-items:flex-start; gap:16px;
@@ -365,40 +442,61 @@
   .event-idx{
     flex:0 0 32px; width:32px; height:32px;
     display:grid; place-items:center;
-    border-radius:10px;
-    font-size:13px; font-weight:700;
+    border-radius:var(--radius-sm); font-size:13px; font-weight:700;
     background:var(--brand-soft); color:var(--brand);
-    transition:background .25s, color .25s;
+    transition:background .25s, color .25s, border-radius .3s;
     font-variant-numeric:tabular-nums;
   }
   .event-card.is-open .event-idx{ background:var(--brand); color:#fff; }
 
+  html[data-theme="ink"] .event-idx{
+    background:transparent;
+    color:var(--ink-soft);
+    border-radius:0;
+    font-family:Georgia,serif;
+    font-size:12px;
+    letter-spacing:.1em;
+  }
+  html[data-theme="ink"] .event-card.is-open .event-idx{
+    background:transparent; color:var(--brand);
+  }
+
+  html[data-theme="retro"] .event-idx{
+    background:#2b2415;
+    color:#faf3e0;
+    border-radius:1px;
+  }
+  html[data-theme="retro"] .event-card.is-open .event-idx{
+    background:var(--brand); color:#fff;
+  }
+
   .event-body{ flex:1; min-width:0; }
 
   .event-month{
-    display:inline-block;
-    margin-bottom:6px;
-    padding:1px 8px;
-    font-size:10.5px;
-    font-weight:700;
-    letter-spacing:.14em;
-    color:var(--brand);
-    background:var(--brand-soft);
-    border-radius:4px;
+    display:inline-block; margin-bottom:6px;
+    padding:1px 8px; font-size:10.5px; font-weight:700;
+    letter-spacing:.14em; color:var(--brand);
+    background:var(--brand-soft); border-radius:4px;
     font-variant-numeric:tabular-nums;
   }
-  .event-card.is-open .event-month{
-    background:var(--brand);
-    color:#fff;
+  .event-card.is-open .event-month{ background:var(--brand); color:#fff; }
+  html[data-theme="retro"] .event-month{
+    border:1px solid var(--brand); background:transparent;
+  }
+  html[data-theme="retro"] .event-card.is-open .event-month{
+    background:var(--brand); color:#faf3e0;
   }
 
   .event-title{
     margin:0 0 6px; font-size:16.5px; font-weight:700;
     letter-spacing:-.005em; line-height:1.5;
   }
+  html[data-theme="ink"] .event-title{ letter-spacing:.005em; }
+
   .event-sub{
     margin:0; font-size:13.5px; color:var(--ink-soft); line-height:1.7;
   }
+
   .event-toggle{
     flex:0 0 auto; width:24px; height:24px; margin-top:4px;
     display:grid; place-items:center;
@@ -406,15 +504,15 @@
     transition:transform .3s;
   }
   .event-card.is-open .event-toggle{ transform:rotate(45deg); color:var(--brand); }
+  html[data-theme="ink"] .event-toggle{ font-size:14px; font-weight:300; }
 
   .event-detail{
     display:none; padding:0 24px 24px 72px; font-size:14.5px;
   }
   .event-card.is-open .event-detail{ display:block; }
-
-  #topicEvents .event-detail{
-    padding-left: 24px;
-  }
+  #topicEvents .event-detail{ padding-left:24px; }
+  html[data-theme="ink"] .event-detail{ padding-top:6px; }
+  html[data-theme="retro"] .event-detail{ padding-top:6px; }
 
   .detail-block{ margin-bottom:16px; }
   .detail-block:last-child{ margin-bottom:0; }
@@ -423,6 +521,9 @@
     font-size:11.5px; font-weight:700; letter-spacing:.08em;
     color:var(--accent);
   }
+  html[data-theme="ink"] .detail-label::before{ content:"— "; }
+  html[data-theme="retro"] .detail-label::before{ content:"§ "; }
+
   .detail-text{ margin:0; color:var(--ink); line-height:1.85; }
 
   .theory-tags{ display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
@@ -431,11 +532,25 @@
     background:var(--tag-bg); color:var(--ink-soft);
     border-radius:999px;
   }
+  html[data-theme="ink"] .theory-tag{ border-radius:0; background:transparent; border:1px solid var(--line); }
+  html[data-theme="retro"] .theory-tag{ border-radius:1px; }
 
   .exam-hint{
     margin-top:16px; padding:14px 18px;
-    background:var(--brand-soft); border-radius:12px;
+    background:var(--brand-soft); border-radius:var(--radius-sm);
     font-size:14px; line-height:1.8;
+  }
+  html[data-theme="ink"] .exam-hint{
+    border-left:3px solid var(--brand);
+    border-radius:0;
+    padding:10px 0 10px 16px;
+    background:transparent;
+  }
+  html[data-theme="retro"] .exam-hint{
+    border-left:3px solid var(--brand);
+    border-radius:0;
+    padding:10px 0 10px 16px;
+    background:transparent;
   }
   .exam-hint::before{
     content:"✦ 考点角度";
@@ -443,8 +558,10 @@
     font-size:11.5px; font-weight:700; letter-spacing:.08em;
     color:var(--brand);
   }
+  html[data-theme="ink"] .exam-hint::before{ content:"考点角度"; letter-spacing:.14em; }
+  html[data-theme="retro"] .exam-hint::before{ content:"考点角度"; letter-spacing:.14em; }
 
-  /* 专题热点网格 */
+  /* ==================== 专题网格 ==================== */
   .cat-grid{
     display:grid;
     grid-template-columns:repeat(auto-fill, minmax(230px, 1fr));
@@ -453,43 +570,44 @@
   .cat-card{
     display:flex; align-items:center; justify-content:space-between;
     gap:14px; padding:22px;
-    background:var(--surface); border:1px solid var(--line);
-    border-radius:16px;
-    text-align:left;
-    cursor:pointer;
-    font-family:inherit;
-    color:var(--ink);
+    background:var(--surface); border:var(--card-border);
+    border-radius:var(--radius-md);
+    text-align:left; cursor:pointer;
+    font-family:inherit; color:var(--ink);
+    box-shadow:var(--card-shadow);
     transition:transform .28s cubic-bezier(.2,.7,.3,1),
-               border-color .28s, box-shadow .28s;
+               border-color .28s, box-shadow .28s, background .3s, border-radius .3s;
   }
   .cat-card:hover{
     transform:translateY(-3px);
     border-color:var(--brand);
-    box-shadow:0 16px 34px -24px rgba(0,0,0,.4);
+    box-shadow:var(--card-hover-shadow);
   }
   .cat-card h3{ margin:0; font-size:15px; font-weight:600; }
   .cc-count{
     flex:0 0 auto; font-size:12.5px;
     color:var(--ink-soft); font-variant-numeric:tabular-nums;
   }
+  html[data-theme="ink"] .cat-card{
+    border:none; border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    border-radius:0; box-shadow:none;
+  }
+  html[data-theme="retro"] .cat-card{
+    border:none; border-top:1px solid #c9b998; border-bottom:1px solid #c9b998;
+    border-radius:0; box-shadow:none;
+  }
 
-  /* 专题详情页 */
+  /* ==================== 专题详情 ==================== */
   .topic-head{ padding:4.5vh 0 0; }
   .topic-back{
     display:inline-flex; align-items:center; gap:6px;
-    padding:6px 14px;
-    font-size:12.5px;
-    color:var(--ink-soft);
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:999px;
-    cursor:pointer;
-    font-family:inherit;
-    margin-bottom:26px;
-    transition:.22s;
+    padding:6px 14px; font-size:12.5px;
+    color:var(--ink-soft); background:var(--surface);
+    border:1px solid var(--line); border-radius:999px;
+    cursor:pointer; font-family:inherit;
+    margin-bottom:26px; transition:.22s;
   }
   .topic-back:hover{ color:var(--brand); border-color:var(--brand); }
-
   .topic-title-row{
     display:flex; align-items:baseline; justify-content:space-between;
     gap:18px 24px; flex-wrap:wrap;
@@ -500,25 +618,29 @@
     font-weight:700; letter-spacing:-.01em; line-height:1.2;
   }
   .topic-desc{
-    margin:16px 0 0;
-    max-width:58ch;
-    font-size:14.5px;
-    color:var(--ink-soft);
-    line-height:1.85;
+    margin:16px 0 0; max-width:58ch;
+    font-size:14.5px; color:var(--ink-soft); line-height:1.85;
   }
-  .topic-divider{
-    margin:30px 0 0;
-    border-top:1px solid var(--line);
-  }
-
+  .topic-divider{ margin:30px 0 0; border-top:1px solid var(--line); }
   .placeholder-note{
     margin-top:26px; padding:14px 18px;
     font-size:13px; color:var(--ink-soft);
-    background:var(--brand-soft); border-radius:12px;
+    background:var(--brand-soft); border-radius:var(--radius-sm);
     line-height:1.8;
   }
+  html[data-theme="ink"] .placeholder-note{
+    border-left:3px solid var(--brand); border-radius:0; background:transparent; padding-left:16px;
+  }
+  html[data-theme="retro"] .placeholder-note{
+    border-left:3px solid var(--brand); border-radius:0; background:transparent; padding-left:16px;
+  }
 
+  /* ==================== 响应式 ==================== */
   @media (max-width:720px){
+    .theme-float{ height:42px; }
+    .tf-trigger{ flex:0 0 42px; width:42px; height:42px; font-size:17px; }
+    .theme-float.is-open .tf-options{ max-width:320px; padding:0 4px 0 8px; }
+    .tf-options button{ padding:5px 11px; font-size:12px; }
     .entries{ grid-template-columns:1fr; gap:16px; margin-top:40px; }
     .entry{ min-height:0; padding:26px; }
     .entry-title{ margin-top:20px; }
@@ -538,7 +660,6 @@
     .intro-line1{ font-size:14px; }
     .intro-line1 .count{ font-size:17px; }
     .topic-head{ padding-top:3vh; }
-    /* 移动端：字号略缩，让整句仍在一行内 */
     .feedback-toggle{ font-size:12px; gap:8px; }
     .feedback-toggle .ft-text .sep{ margin:0 4px; }
   }
@@ -546,47 +667,50 @@
 </head>
 <body>
 
+<!-- 主题抽屉：贴右边缘，可上下拖动 -->
+<div class="theme-float" id="themeFloat" role="group" aria-label="主题切换">
+  <div class="tf-options">
+    <button data-set-theme="default" class="is-active">暖</button>
+    <button data-set-theme="night">夜</button>
+    <button data-set-theme="ink">墨</button>
+    <button data-set-theme="pink">粉</button>
+    <button data-set-theme="retro">报</button>
+  </div>
+  <button class="tf-trigger" aria-label="切换主题" title="切换主题">🎨</button>
+</div>
+
 <nav class="topbar">
-  <button class="brand" data-goto="home">
-    <span class="dot"></span>Wuli 新传
-  </button>
+  <button class="brand" data-goto="home"><span class="dot"></span>wuli新传考研</button>
   <button class="back" id="backBtn" data-goto="home">← 返回首页</button>
 </nav>
 
 <main>
 
-  <!-- 首页 -->
   <section id="view-home" class="view is-active">
     <div class="wrap">
       <header class="hero">
         <p class="eyebrow">新闻与传播 新闻传播学 出版 · 考研热点</p>
-        <h1><span class="wuli">Wuli</span>新传热点知识库</h1>
+        <h1><span class="wuli">wuli新传考研</span>热点知识库</h1>
         <p class="lede">按部就班就是伟大。热点是我们的案例库，也是题库，能背、能用是我们的目标(๑•̀ㅂ•́)و✧</p>
       </header>
 
       <div class="entries">
         <button class="entry" data-goto="monthly">
           <div class="entry-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="1.6"
-                 stroke-linecap="round" stroke-linejoin="round">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="5" width="18" height="16" rx="2.5"/>
               <path d="M3 10h18"/><path d="M8 3v4M16 3v4"/>
             </svg>
           </div>
           <h2 class="entry-title">每月热点</h2>
           <p class="entry-desc">按月份归档当月新闻传播热点，附考点角度与理论关联。</p>
-          <div class="entry-foot">
-            <span class="entry-meta">2026 年 · 6 期 · 16 条</span>
-          </div>
+          <div class="entry-foot"><span class="entry-meta">2026 年 · 6 期 · 16 条</span></div>
           <span class="entry-arrow" aria-hidden="true">→</span>
         </button>
 
         <button class="entry" data-goto="category">
           <div class="entry-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="1.6"
-                 stroke-linecap="round" stroke-linejoin="round">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3.5" y="3.5" width="7" height="7" rx="2"/>
               <rect x="13.5" y="3.5" width="7" height="7" rx="2"/>
               <rect x="3.5" y="13.5" width="7" height="7" rx="2"/>
@@ -595,24 +719,20 @@
           </div>
           <h2 class="entry-title">专题热点</h2>
           <p class="entry-desc">按专题聚合热点，让热点不再零散</p>
-          <div class="entry-foot">
-            <span class="entry-meta">8 个专题 · 持续更新</span>
-          </div>
+          <div class="entry-foot"><span class="entry-meta">8 个专题 · 持续更新</span></div>
           <span class="entry-arrow" aria-hidden="true">→</span>
         </button>
       </div>
 
-      <footer class="foot">Wuli 新传热点知识库 · 内容持续更新中</footer>
+      <footer class="foot">wuli新传考研热点知识库 · 内容持续更新中</footer>
 
-      <!-- 意见反馈（折叠版） -->
       <section class="feedback" aria-label="意见反馈">
         <button class="feedback-toggle" id="feedbackToggle">
           <span class="ft-text">希望增添<span class="sep">/</span>错误修改<span class="sep">/</span>其他意见<span class="sep">/</span>找到我 · 欢迎留下脚印 👣</span>
           <span class="ft-arrow" aria-hidden="true">＋</span>
         </button>
         <div class="feedback-panel" id="feedbackPanel">
-          <textarea class="feedback-input" id="feedbackText"
-                    placeholder="写下你的想法、发现的问题，或想看到的专题…"></textarea>
+          <textarea class="feedback-input" id="feedbackText" placeholder="写下你的想法、发现的问题，或想看到的专题…"></textarea>
           <div class="feedback-actions">
             <span class="feedback-hint" id="feedbackHint"></span>
             <button class="feedback-send" id="feedbackSend">发送 →</button>
@@ -622,7 +742,6 @@
     </div>
   </section>
 
-  <!-- 每月热点 -->
   <section id="view-monthly" class="view">
     <div class="wrap-narrow">
       <header class="page-head">
@@ -631,14 +750,11 @@
           <div class="head-meta" id="headMeta"></div>
         </div>
       </header>
-      <nav class="month-tabs">
-        <div class="tab-track" id="tabTrack"></div>
-      </nav>
+      <nav class="month-tabs"><div class="tab-track" id="tabTrack"></div></nav>
       <div id="monthPanels"></div>
     </div>
   </section>
 
-  <!-- 专题热点（列表） -->
   <section id="view-category" class="view">
     <div class="wrap-narrow">
       <header class="page-head">
@@ -647,16 +763,11 @@
           <div class="head-meta">已规划 <b>8</b> 个专题</div>
         </div>
       </header>
-
       <div class="cat-grid" id="catGrid"></div>
-
-      <div class="placeholder-note">
-        点击任意专题进入查看该专题下的热点聚合，每条事件顶部标有月份，可回到「每月热点」查看完整语境。
-      </div>
+      <div class="placeholder-note">点击任意专题进入查看该专题下的热点聚合，每条事件顶部标有月份，可回到「每月热点」查看完整语境。</div>
     </div>
   </section>
 
-  <!-- 专题详情 -->
   <section id="view-topic" class="view">
     <div class="wrap-narrow">
       <header class="topic-head">
@@ -675,245 +786,240 @@
 </main>
 
 <script>
-/* =========================================================
-   每月热点数据
-   ========================================================= */
+/* ==================== 主题抽屉（贴右边缘，可上下拖动） ==================== */
+(function themeSwitcher(){
+  const floater = document.getElementById("themeFloat");
+  const btns = floater.querySelectorAll("button[data-set-theme]");
+  const trigger = floater.querySelector(".tf-trigger");
+  const root = document.documentElement;
+  const themes = ["default","night","ink","pink","retro"];
+
+  function setTheme(t){
+    if(!themes.includes(t)) t = "default";
+    root.setAttribute("data-theme", t);
+    btns.forEach(b => b.classList.toggle("is-active", b.dataset.setTheme === t));
+    try{ localStorage.setItem("wuli-theme", t); }catch(e){}
+  }
+
+  btns.forEach(b => {
+    b.addEventListener("click", e => {
+      e.stopPropagation();
+      setTheme(b.dataset.setTheme);
+      floater.classList.remove("is-open");
+    });
+  });
+
+  try{
+    const saved = localStorage.getItem("wuli-theme");
+    if(saved) setTheme(saved);
+  }catch(e){}
+
+  function applyPos(topPx){
+    const h = floater.offsetHeight || 46;
+    const minTop = 60;
+    const maxTop = window.innerHeight - h - 20;
+    const t = Math.max(minTop, Math.min(maxTop, topPx));
+    floater.style.top = t + "px";
+    floater.style.bottom = "auto";
+  }
+
+  try{
+    const savedPos = JSON.parse(localStorage.getItem("wuli-theme-pos") || "null");
+    if(savedPos && typeof savedPos.top === "number"){
+      applyPos(savedPos.top);
+    }
+  }catch(e){}
+
+  let dragging = false;
+  let moved = false;
+  let startY = 0;
+  let startTop = 0;
+
+  floater.addEventListener("pointerdown", e => {
+    if(e.target.closest("button[data-set-theme]")) return;
+    dragging = true;
+    moved = false;
+    startY = e.clientY;
+    const r = floater.getBoundingClientRect();
+    startTop = r.top;
+    floater.classList.add("dragging");
+    try{ floater.setPointerCapture(e.pointerId); }catch(err){}
+  });
+
+  floater.addEventListener("pointermove", e => {
+    if(!dragging) return;
+    const dy = e.clientY - startY;
+
+    if(!moved && Math.abs(dy) > 4){
+      moved = true;
+      floater.style.top = startTop + "px";
+      floater.style.bottom = "auto";
+    }
+    if(!moved) return;
+
+    e.preventDefault();
+    const h = floater.offsetHeight;
+    const minTop = 60;
+    const maxTop = window.innerHeight - h - 20;
+    let nt = startTop + dy;
+    nt = Math.max(minTop, Math.min(maxTop, nt));
+    floater.style.top = nt + "px";
+  });
+
+  function endDrag(e){
+    if(!dragging) return;
+    dragging = false;
+    floater.classList.remove("dragging");
+    try{ floater.releasePointerCapture(e.pointerId); }catch(err){}
+
+    if(!moved){
+      floater.classList.toggle("is-open");
+    } else {
+      const r = floater.getBoundingClientRect();
+      try{
+        localStorage.setItem("wuli-theme-pos", JSON.stringify({top:r.top}));
+      }catch(err){}
+    }
+  }
+  floater.addEventListener("pointerup", endDrag);
+  floater.addEventListener("pointercancel", endDrag);
+
+  document.addEventListener("click", e => {
+    if(!floater.contains(e.target)){
+      floater.classList.remove("is-open");
+    }
+  }, true);
+
+  window.addEventListener("resize", () => {
+    const r = floater.getBoundingClientRect();
+    applyPos(r.top);
+  });
+})();
+
+/* ==================== 热点数据 ==================== */
 const HOTSPOTS = {
-
-  "01": {
-    en: "JAN",
-    events: [
-      {
-        title: "义乌“哭哭马”：一次缝纫失误如何变成全网爆款",
-        sub: "因工人误将小马嘴角缝反，委屈脸玩偶意外走红，义乌商家48小时内完成从发现到加急生产的决策链条。",
-        theory: "情绪消费 · 符号互动论 · 使用与满足",
-        analysis: "“哭哭马”的传播动力不在产品功能，而在它承载的“不完美真实感”。传统生肖文创清一色喜庆吉祥，哭哭马提供了一个反模板的情绪出口——网友通过转发和二次创作，把“委屈”投射为职场焦虑、学业压力的替代表达。义乌商家的快速响应则展示了平台经济下“快反供应链”的信息敏感度：走红信号在社交平台出现后，生产决策几乎同步启动，传播链条从“生产—营销—消费”变成了“情绪—传播—生产”。",
-        exam: "可从「情绪传播」「消费文化」「平台经济与快反供应链」切入。若考“情感消费”类论述，哭哭马是“反完美人设”的典型论据，与“丑萌经济”“发疯文学”可归入同一脉络。"
-      },
-      {
-        title: "重庆“呆呆”摇人杀猪：一条求助视频涨粉200万",
-        sub: "女孩因父亲年迈按不住年猪，随手发抖音求助，上千网友跨省奔赴，两天涨粉超170万，直播间10万人在线。",
-        theory: "情感传播 · 算法推荐 · 参与式文化 · 乡土怀旧",
-        analysis: "事件的核心驱动力是“质朴真实”与“集体乡愁”的共振。呆呆的求助没有任何策划痕迹，恰恰是这种“非表演性”击穿了算法对“真实感”的识别偏好，被推入大流量池。更深层看，高度城市化让“杀年猪”“刨猪汤”成了许多人的记忆空白，网友奔赴的不仅是合川，更是一个可触摸的“年味”符号。主流媒体后续介入，将乡土文化带入公共视野，完成了从“流量事件”到“文化议题”的升格。",
-        exam: "适合分析「算法与真实性的悖论」「情感传播机制」「平台造星逻辑」。注意区分：呆呆的走红不是“被策划”，而是“被算法捕捉的真实”。可与“淄博烧烤”“尔滨冰雪”并列作为“情感驱动的目的地传播”案例。"
-      },
-      {
-        title: "AI生成图片获摄影比赛一等奖：当“骑楼旧光”骗过评委",
-        sub: "华住集团旗下酒店摄影大赛一等奖作品《骑楼旧光》被网友质疑为AI生成，后被撤下。此前已有类似赛事出现AI作品获奖情况。",
-        theory: "新闻真实性 · 技术伦理 · 把关人 · 视觉传播",
-        analysis: "这张图片的“破绽”在于细节：建筑纹理、光影逻辑、文字残留。网友充当了“民间鉴假”的角色，而赛事评委——包括多位协会副会长——却未能识别。这说明面对AI生成内容，传统的视觉经验正在失效。摄影比赛的规则模糊是另一层问题：多数赛事未明确禁止AI生成或要求标注生成方式，导致“真实性”这一摄影的底线在制度层面处于真空。",
-        exam: "核心考点是「新闻/纪实摄影的真实性原则」「AI生成内容对把关机制的挑战」「技术伦理」。可延伸到“深度伪造与视觉证据”“平台标注义务”等议题。答题时强调：AI不是问题本身，规则缺失和把关失效才是。"
-      },
-      {
-        title: "00后陈欣妍长城哽咽诵诗：500万点赞背后的文化共鸣",
-        sub: "湖南大四女生独自从湖南到北京，在八达岭长城含泪朗诵《清平乐·六盘山》，视频获超500万点赞，游客自发接诵。",
-        theory: "文化记忆 · 集体情感 · 仪式传播 · 青年文化认同",
-        analysis: "长城作为一个“仪式性空间”，为朗诵提供了无法复制的场域能量。当陈欣妍哽咽着念出“不到长城非好汉”，游客自然接上“屈指行程二万”，这不是排练过的，而是文化记忆被空间激活后的自发行为。短视频记录下的“哽咽”是情感真实性的最强信号——在算法推荐大量精致但空洞的内容时，一段画质普通、情绪真实的视频反而获得了最高的传播效率。这折射出青年一代对宏大叙事的态度变化：不是排斥，而是需要“真实的人”去承载。",
-        exam: "适合「仪式传播」「文化记忆」「青年文化认同」方向。可对比“B站跨年晚会”“国潮消费”等青年文化现象，讨论“主流价值的年轻化传播”。"
-      }
-    ]
-  },
-
-  "02": {
-    en: "FEB",
-    events: [
-      {
-        title: "网信办启动“清朗”专项行动，整治“数字泔水”",
-        sub: "中央网信办开展为期1个月的春节网络环境专项行动，重点整治利用AI生成低营养、虚假信息等“数字泔水”。",
-        theory: "算法治理 · 信息生态 · 平台责任",
-        analysis: "“数字泔水”概念的核心不是内容“假”，而是内容“空”——用AI批量生产的、看似无害但毫无信息增量的内容，借助算法推荐持续占据用户注意力。它的危害是结构性的：当低成本的AI内容大量涌入，认真生产的内容反而在流量竞争中处于劣势。专项行动将治理对象从“违法信息”扩展到“低质信息”，意味着监管逻辑从底线管控走向生态建设。",
-        exam: "核心考点「算法治理」「信息生态」「平台责任」。注意“数字泔水”与“标题党”“洗稿”的区别：前者是AI批量生成，规模效应和自动化程度是新的治理难点。"
-      },
-      {
-        title: "2026春晚人形机器人表演引发国际关注",
-        sub: "央视春晚上人形机器人与功夫演员合作表演武术，CNN等外媒进行报道，被称为“中国技术展示”。",
-        theory: "媒介技术 · 国家形象传播 · 技术叙事",
-        analysis: "春晚的人形机器人表演不只是“节目”，更是一次精心设计的技术叙事。机器人与功夫的结合，在符号层面将“中国制造”从“廉价代工”转向“精密创新”。外媒的报道框架也值得注意：多数聚焦于“技术能力”而非“文化内容”，说明技术已经成为国际传播中比文化叙事更高效的认知入口。",
-        exam: "可从「媒介技术与国家形象」「技术叙事」「国际传播中的符号选择」角度切入。与北京冬奥会开幕式、杭州亚运会中的技术元素可归入同一分析框架。"
-      },
-      {
-        title: "AI生成视频未标注被处置：多个账号因虚构内容被处理",
-        sub: "微博、快手、B站等平台多个账号因发布未标注AI生成的虚构视频（如“狗在高铁站救婴儿”）被依法处置。",
-        theory: "AI标识 · 平台规制 · 虚假信息治理",
-        analysis: "这一批处置的关键不在于“内容假”，而在于“未标注”。AI生成内容本身不违规，但未标识的AI内容在传播中会被受众当作真实信息接收，造成认知混淆。平台开始将“AI生成标识”作为账号运营的合规要求，这是从“事后辟谣”转向“事前标识”的治理思路转变。",
-        exam: "考点「AI标识制度」「平台内容审核」「虚假信息治理」。可关联欧盟《人工智能法案》中的透明度要求，做中外治理路径对比。"
-      }
-    ]
-  },
-
-  "03": {
-    en: "MAR",
-    events: [
-      {
-        title: "2026中国网络媒体论坛：主流媒体与多元主体“共创生态”",
-        sub: "3月28-29日在郑州举行，主题为“发挥主流媒体引领力 激发多元主体创造力——共创繁荣网络内容生态”，系统梳理十年网络内容建设。",
-        theory: "主流媒体转型 · 内容生态 · 媒体融合",
-        analysis: "论坛主题中“引领力”与“创造力”的并置值得注意：主流媒体不再被定位为“唯一生产者”，而是生态中的“引领者”。这意味着媒体融合进入新阶段——从“建平台、做产品”转向“定规则、搭生态”。正能量创作者大会的设立也说明，UGC创作者正在被纳入主流内容供给体系。",
-        exam: "核心考点「媒体融合」「主流媒体转型」「内容生态治理」。可将论坛主题与“四级媒体融合”“县级融媒体”等政策脉络串联。"
-      },
-      {
-        title: "数智赋能正能量传播大会：AI如何“向善”",
-        sub: "论坛特色活动，展示《每日读画》《算法护航》等AI赋能内容生产的创新实践，聚焦“算法向善”。",
-        theory: "算法向善 · AI与内容生产 · 智能传播",
-        analysis: "“算法向善”从口号走向案例展示，说明技术伦理的讨论正在从“批判”转向“设计”。展示的实践项目集中在文化传播和公共服务领域，避开了商业平台的流量逻辑——用“非商业场景”来验证AI的公共价值，是一种务实的治理策略。",
-        exam: "可分析「智能传播的公共性」「算法价值观」「AI与主流价值传播」。注意与“算法偏见”“信息茧房”等批判视角形成对照。"
-      }
-    ]
-  },
-
-  "04": {
-    en: "APR",
-    events: [
-      {
-        title: "第十三届中国网络视听大会：微短剧进入“精品扶持”阶段",
-        sub: "4月15日在成都开幕，发布《中国网络视听发展研究报告（2026）》，推出微短剧精品扶持计划，启动“长征：我们的故事”主题微短剧创作。",
-        theory: "微短剧 · 视听传播 · 内容精品化",
-        analysis: "微短剧从“流量野蛮生长”进入“精品扶持”阶段，标志着监管与市场的关系从“事后整治”转向“事前引导”。扶持计划以主题创作为抓手（长征题材），实质上是在用主流议题为微短剧“正名”。但精品化是否意味着微短剧会丧失其“短平快”的传播优势，仍是待观察的张力。",
-        exam: "核心考点「微短剧的传播逻辑与治理」「网络视听内容生态」。可对比长视频平台的精品化路径，分析不同媒介形态的“主流化”策略差异。"
-      },
-      {
-        title: "《中国网络视听发展研究报告（2026）》发布",
-        sub: "报告在大会开幕式发布，涵盖用户规模、内容消费、技术应用等维度的年度数据。",
-        theory: "视听传播 · 用户研究 · 行业数据",
-        analysis: "报告的核心价值在于提供“行业基准线”。备考时重点关注：短视频用户增长是否见顶、长视频与短视频的时长竞争、AI生成内容在视听领域的渗透率。数据本身不是考点，但“数据揭示的结构性变化”是论述题的重要论据。",
-        exam: "适合作为「视听传播」「用户行为」「行业变迁」类题目的数据支撑。建议整理3-5个关键数据点（如日均使用时长、内容品类占比）备用。"
-      }
-    ]
-  },
-
-  "05": {
-    en: "MAY",
-    events: [
-      {
-        title: "2026中国网络文明大会：发布《人工智能应用伦理安全指引1.0》",
-        sub: "5月19-20日在南宁举行，分论坛发布AI伦理安全指引，聚焦人工智能赋能网络文明建设。",
-        theory: "AI伦理 · 网络文明 · 技术治理",
-        analysis: "“指引1.0”的编号本身就说明这是动态迭代的开始。将AI伦理纳入“网络文明”框架，意味着治理逻辑从“技术安全”扩展到“文明价值”——AI不仅要“不出事”，还要“向善”。国际交流互鉴分论坛的设置也表明，网络文明话语正在成为国际传播的新载体。",
-        exam: "考点「人工智能伦理」「网络文明建设」「技术治理的制度化」。可关联“算法推荐管理规定”“深度合成规定”等已有政策，形成政策演进脉络。"
-      },
-      {
-        title: "我国首颗文化传播卫星“有戏号”发射成功",
-        sub: "5月15日发射，定位为“空地一体互动文化传播卫星”，服务于文化内容的星地传播与互动。",
-        theory: "文化传播 · 传播基础设施 · 国家传播能力",
-        analysis: "“有戏号”的传播学意义不在于卫星技术本身，而在于它将“文化传播”提升到了基础设施层面。此前文化出海主要依赖平台和内容渠道，卫星意味着国家在物理层面为文化传播铺设了专属通道。这可以理解为“传播基础设施化”的一个信号：文化传播从“内容竞争”进入“通道建设”阶段。",
-        exam: "适合「国际传播」「传播基础设施」「国家传播能力」方向。与“北斗”“空间站”等可作为“技术基础设施承载文化功能”的并列案例。"
-      },
-      {
-        title: "电影《给阿嬷的情书》走红网络",
-        sub: "影片在大会期间被多次提及，以质朴叙事引发网络共鸣，成为“情感驱动传播”的又一案例。",
-        theory: "情感传播 · 口碑传播 · 文化认同",
-        analysis: "与1月的“呆呆杀猪宴”形成呼应：两者都依靠“非精致化”的真实情感获得传播势能。《给阿嬷的情书》没有依赖大宣发，而是通过观众的自发分享完成传播链条。这种“低营销、高共鸣”的模式，在算法推荐环境中反而具有更长的传播生命周期。",
-        exam: "可与「情感传播」「口碑与算法」「文化产品的传播逻辑」结合。注意区分“营销驱动的爆款”与“情感驱动的长尾”两种传播模型。"
-      }
-    ]
-  },
-
-  "06": {
-    en: "JUN",
-    events: [
-      {
-        title: "第五届全球媒体创新论坛：“恪守与重塑”",
-        sub: "6月10日在重庆举行，由中央广播电视总台与重庆市人民政府联合主办，聚焦AI时代媒体行业的守正与创新。",
-        theory: "媒体创新 · 新闻专业主义 · AI与新闻业",
-        analysis: "“恪守与重塑”这一主题精准概括了当前媒体行业的核心矛盾：恪守的是新闻真实性、公共性、专业性；重塑的是生产流程、分发逻辑、商业模式。论坛将“AI”置于“恪守”与“重塑”的张力之中，而非简单地欢呼技术或恐惧技术。全球媒体创新论坛本身也是一个传播实践——通过国际论坛的形式，将中国媒体转型的经验和立场纳入全球对话。",
-        exam: "核心考点「AI与新闻业」「新闻专业主义」「媒体融合的全球视野」。答题时注意：不要只谈“AI赋能”，也要谈“AI对新闻规范的冲击”，两者并置才是完整分析。"
-      },
-      {
-        title: "论坛聚焦“人工智能为代表的新一轮科技革命”",
-        sub: "与会嘉宾围绕AI对媒体生产、分发、消费各环节的影响展开讨论，论坛被定位为“各国媒体深化交流、互学互鉴的重要平台”。",
-        theory: "智能传播 · 全球传播秩序 · 媒体合作",
-        analysis: "将全球媒体创新论坛放在“全球传播秩序”的框架下看，它不仅是技术讨论，也是话语实践。在西方主导的国际传播格局中，中国通过主办此类论坛，争夺的是“媒体未来”的定义权——什么样的媒体创新是“好”的、什么样的技术应用是“负责任”的。",
-        exam: "可分析「全球传播秩序」「国际传播话语权」「技术标准与话语权」。与“世界互联网大会”“中国网络媒体论坛”构成中国主导的传播治理话语体系。"
-      }
-    ]
-  }
+  "01": { en:"JAN", events:[
+    { title:"义乌“哭哭马”：一次缝纫失误如何变成全网爆款",
+      sub:"因工人误将小马嘴角缝反，委屈脸玩偶意外走红，义乌商家48小时内完成从发现到加急生产的决策链条。",
+      theory:"情绪消费 · 符号互动论 · 使用与满足",
+      analysis:"“哭哭马”的传播动力不在产品功能，而在它承载的“不完美真实感”。传统生肖文创清一色喜庆吉祥，哭哭马提供了一个反模板的情绪出口——网友通过转发和二次创作，把“委屈”投射为职场焦虑、学业压力的替代表达。义乌商家的快速响应则展示了平台经济下“快反供应链”的信息敏感度：走红信号在社交平台出现后，生产决策几乎同步启动，传播链条从“生产—营销—消费”变成了“情绪—传播—生产”。",
+      exam:"可从「情绪传播」「消费文化」「平台经济与快反供应链」切入。若考“情感消费”类论述，哭哭马是“反完美人设”的典型论据，与“丑萌经济”“发疯文学”可归入同一脉络。" },
+    { title:"重庆“呆呆”摇人杀猪：一条求助视频涨粉200万",
+      sub:"女孩因父亲年迈按不住年猪，随手发抖音求助，上千网友跨省奔赴，两天涨粉超170万，直播间10万人在线。",
+      theory:"情感传播 · 算法推荐 · 参与式文化 · 乡土怀旧",
+      analysis:"事件的核心驱动力是“质朴真实”与“集体乡愁”的共振。呆呆的求助没有任何策划痕迹，恰恰是这种“非表演性”击穿了算法对“真实感”的识别偏好，被推入大流量池。更深层看，高度城市化让“杀年猪”“刨猪汤”成了许多人的记忆空白，网友奔赴的不仅是合川，更是一个可触摸的“年味”符号。主流媒体后续介入，将乡土文化带入公共视野，完成了从“流量事件”到“文化议题”的升格。",
+      exam:"适合分析「算法与真实性的悖论」「情感传播机制」「平台造星逻辑」。注意区分：呆呆的走红不是“被策划”，而是“被算法捕捉的真实”。可与“淄博烧烤”“尔滨冰雪”并列作为“情感驱动的目的地传播”案例。" },
+    { title:"AI生成图片获摄影比赛一等奖：当“骑楼旧光”骗过评委",
+      sub:"华住集团旗下酒店摄影大赛一等奖作品《骑楼旧光》被网友质疑为AI生成，后被撤下。",
+      theory:"新闻真实性 · 技术伦理 · 把关人 · 视觉传播",
+      analysis:"这张图片的“破绽”在于细节：建筑纹理、光影逻辑、文字残留。网友充当了“民间鉴假”的角色，而赛事评委却未能识别。这说明面对AI生成内容，传统的视觉经验正在失效。摄影比赛的规则模糊是另一层问题：多数赛事未明确禁止AI生成或要求标注生成方式，导致“真实性”这一摄影的底线在制度层面处于真空。",
+      exam:"核心考点是「新闻/纪实摄影的真实性原则」「AI生成内容对把关机制的挑战」「技术伦理」。答题时强调：AI不是问题本身，规则缺失和把关失效才是。" },
+    { title:"00后陈欣妍长城哽咽诵诗：500万点赞背后的文化共鸣",
+      sub:"湖南大四女生独自从湖南到北京，在八达岭长城含泪朗诵《清平乐·六盘山》，视频获超500万点赞。",
+      theory:"文化记忆 · 集体情感 · 仪式传播 · 青年文化认同",
+      analysis:"长城作为一个“仪式性空间”，为朗诵提供了无法复制的场域能量。当陈欣妍哽咽着念出“不到长城非好汉”，游客自然接上“屈指行程二万”，这不是排练过的，而是文化记忆被空间激活后的自发行为。短视频记录下的“哽咽”是情感真实性的最强信号——在算法推荐大量精致但空洞的内容时，一段画质普通、情绪真实的视频反而获得了最高的传播效率。",
+      exam:"适合「仪式传播」「文化记忆」「青年文化认同」方向。可对比“B站跨年晚会”“国潮消费”等青年文化现象，讨论“主流价值的年轻化传播”。" }
+  ]},
+  "02": { en:"FEB", events:[
+    { title:"网信办启动“清朗”专项行动，整治“数字泔水”",
+      sub:"中央网信办开展为期1个月的春节网络环境专项行动，重点整治利用AI生成低营养、虚假信息等“数字泔水”。",
+      theory:"算法治理 · 信息生态 · 平台责任",
+      analysis:"“数字泔水”概念的核心不是内容“假”，而是内容“空”——用AI批量生产的、看似无害但毫无信息增量的内容，借助算法推荐持续占据用户注意力。它的危害是结构性的：当低成本的AI内容大量涌入，认真生产的内容反而在流量竞争中处于劣势。专项行动将治理对象从“违法信息”扩展到“低质信息”，意味着监管逻辑从底线管控走向生态建设。",
+      exam:"核心考点「算法治理」「信息生态」「平台责任」。注意“数字泔水”与“标题党”“洗稿”的区别：前者是AI批量生成，规模效应和自动化程度是新的治理难点。" },
+    { title:"2026春晚人形机器人表演引发国际关注",
+      sub:"央视春晚上人形机器人与功夫演员合作表演武术，CNN等外媒进行报道，被称为“中国技术展示”。",
+      theory:"媒介技术 · 国家形象传播 · 技术叙事",
+      analysis:"春晚的人形机器人表演不只是“节目”，更是一次精心设计的技术叙事。机器人与功夫的结合，在符号层面将“中国制造”从“廉价代工”转向“精密创新”。外媒的报道框架也值得注意：多数聚焦于“技术能力”而非“文化内容”，说明技术已经成为国际传播中比文化叙事更高效的认知入口。",
+      exam:"可从「媒介技术与国家形象」「技术叙事」「国际传播中的符号选择」角度切入。与北京冬奥会开幕式、杭州亚运会中的技术元素可归入同一分析框架。" },
+    { title:"AI生成视频未标注被处置：多个账号因虚构内容被处理",
+      sub:"微博、快手、B站等平台多个账号因发布未标注AI生成的虚构视频被依法处置。",
+      theory:"AI标识 · 平台规制 · 虚假信息治理",
+      analysis:"这一批处置的关键不在于“内容假”，而在于“未标注”。AI生成内容本身不违规，但未标识的AI内容在传播中会被受众当作真实信息接收，造成认知混淆。平台开始将“AI生成标识”作为账号运营的合规要求，这是从“事后辟谣”转向“事前标识”的治理思路转变。",
+      exam:"考点「AI标识制度」「平台内容审核」「虚假信息治理」。可关联欧盟《人工智能法案》中的透明度要求，做中外治理路径对比。" }
+  ]},
+  "03": { en:"MAR", events:[
+    { title:"2026中国网络媒体论坛：主流媒体与多元主体“共创生态”",
+      sub:"3月28-29日在郑州举行，主题为“发挥主流媒体引领力 激发多元主体创造力——共创繁荣网络内容生态”。",
+      theory:"主流媒体转型 · 内容生态 · 媒体融合",
+      analysis:"论坛主题中“引领力”与“创造力”的并置值得注意：主流媒体不再被定位为“唯一生产者”，而是生态中的“引领者”。这意味着媒体融合进入新阶段——从“建平台、做产品”转向“定规则、搭生态”。正能量创作者大会的设立也说明，UGC创作者正在被纳入主流内容供给体系。",
+      exam:"核心考点「媒体融合」「主流媒体转型」「内容生态治理」。可将论坛主题与“四级媒体融合”“县级融媒体”等政策脉络串联。" },
+    { title:"数智赋能正能量传播大会：AI如何“向善”",
+      sub:"论坛特色活动，展示《每日读画》《算法护航》等AI赋能内容生产的创新实践，聚焦“算法向善”。",
+      theory:"算法向善 · AI与内容生产 · 智能传播",
+      analysis:"“算法向善”从口号走向案例展示，说明技术伦理的讨论正在从“批判”转向“设计”。展示的实践项目集中在文化传播和公共服务领域，避开了商业平台的流量逻辑——用“非商业场景”来验证AI的公共价值，是一种务实的治理策略。",
+      exam:"可分析「智能传播的公共性」「算法价值观」「AI与主流价值传播」。注意与“算法偏见”“信息茧房”等批判视角形成对照。" }
+  ]},
+  "04": { en:"APR", events:[
+    { title:"第十三届中国网络视听大会：微短剧进入“精品扶持”阶段",
+      sub:"4月15日在成都开幕，发布《中国网络视听发展研究报告（2026）》，推出微短剧精品扶持计划。",
+      theory:"微短剧 · 视听传播 · 内容精品化",
+      analysis:"微短剧从“流量野蛮生长”进入“精品扶持”阶段，标志着监管与市场的关系从“事后整治”转向“事前引导”。扶持计划以主题创作为抓手，实质上是在用主流议题为微短剧“正名”。但精品化是否意味着微短剧会丧失其“短平快”的传播优势，仍是待观察的张力。",
+      exam:"核心考点「微短剧的传播逻辑与治理」「网络视听内容生态」。可对比长视频平台的精品化路径，分析不同媒介形态的“主流化”策略差异。" },
+    { title:"《中国网络视听发展研究报告（2026）》发布",
+      sub:"报告在大会开幕式发布，涵盖用户规模、内容消费、技术应用等维度的年度数据。",
+      theory:"视听传播 · 用户研究 · 行业数据",
+      analysis:"报告的核心价值在于提供“行业基准线”。备考时重点关注：短视频用户增长是否见顶、长视频与短视频的时长竞争、AI生成内容在视听领域的渗透率。数据本身不是考点，但“数据揭示的结构性变化”是论述题的重要论据。",
+      exam:"适合作为「视听传播」「用户行为」「行业变迁」类题目的数据支撑。建议整理3-5个关键数据点备用。" }
+  ]},
+  "05": { en:"MAY", events:[
+    { title:"2026中国网络文明大会：发布《人工智能应用伦理安全指引1.0》",
+      sub:"5月19-20日在南宁举行，分论坛发布AI伦理安全指引，聚焦人工智能赋能网络文明建设。",
+      theory:"AI伦理 · 网络文明 · 技术治理",
+      analysis:"“指引1.0”的编号本身就说明这是动态迭代的开始。将AI伦理纳入“网络文明”框架，意味着治理逻辑从“技术安全”扩展到“文明价值”——AI不仅要“不出事”，还要“向善”。国际交流互鉴分论坛的设置也表明，网络文明话语正在成为国际传播的新载体。",
+      exam:"考点「人工智能伦理」「网络文明建设」「技术治理的制度化」。可关联“算法推荐管理规定”“深度合成规定”等已有政策，形成政策演进脉络。" },
+    { title:"我国首颗文化传播卫星“有戏号”发射成功",
+      sub:"5月15日发射，定位为“空地一体互动文化传播卫星”，服务于文化内容的星地传播与互动。",
+      theory:"文化传播 · 传播基础设施 · 国家传播能力",
+      analysis:"“有戏号”的传播学意义不在于卫星技术本身，而在于它将“文化传播”提升到了基础设施层面。此前文化出海主要依赖平台和内容渠道，卫星意味着国家在物理层面为文化传播铺设了专属通道。这可以理解为“传播基础设施化”的一个信号：文化传播从“内容竞争”进入“通道建设”阶段。",
+      exam:"适合「国际传播」「传播基础设施」「国家传播能力」方向。与“北斗”“空间站”等可作为“技术基础设施承载文化功能”的并列案例。" },
+    { title:"电影《给阿嬷的情书》走红网络",
+      sub:"影片在大会期间被多次提及，以质朴叙事引发网络共鸣，成为“情感驱动传播”的又一案例。",
+      theory:"情感传播 · 口碑传播 · 文化认同",
+      analysis:"与1月的“呆呆杀猪宴”形成呼应：两者都依靠“非精致化”的真实情感获得传播势能。《给阿嬷的情书》没有依赖大宣发，而是通过观众的自发分享完成传播链条。这种“低营销、高共鸣”的模式，在算法推荐环境中反而具有更长的传播生命周期。",
+      exam:"可与「情感传播」「口碑与算法」「文化产品的传播逻辑」结合。注意区分“营销驱动的爆款”与“情感驱动的长尾”两种传播模型。" }
+  ]},
+  "06": { en:"JUN", events:[
+    { title:"第五届全球媒体创新论坛：“恪守与重塑”",
+      sub:"6月10日在重庆举行，由中央广播电视总台与重庆市人民政府联合主办，聚焦AI时代媒体行业的守正与创新。",
+      theory:"媒体创新 · 新闻专业主义 · AI与新闻业",
+      analysis:"“恪守与重塑”这一主题精准概括了当前媒体行业的核心矛盾：恪守的是新闻真实性、公共性、专业性；重塑的是生产流程、分发逻辑、商业模式。论坛将“AI”置于“恪守”与“重塑”的张力之中，而非简单地欢呼技术或恐惧技术。",
+      exam:"核心考点「AI与新闻业」「新闻专业主义」「媒体融合的全球视野」。答题时注意：不要只谈“AI赋能”，也要谈“AI对新闻规范的冲击”，两者并置才是完整分析。" },
+    { title:"论坛聚焦“人工智能为代表的新一轮科技革命”",
+      sub:"与会嘉宾围绕AI对媒体生产、分发、消费各环节的影响展开讨论，论坛被定位为“各国媒体深化交流、互学互鉴的重要平台”。",
+      theory:"智能传播 · 全球传播秩序 · 媒体合作",
+      analysis:"将全球媒体创新论坛放在“全球传播秩序”的框架下看，它不仅是技术讨论，也是话语实践。在西方主导的国际传播格局中，中国通过主办此类论坛，争夺的是“媒体未来”的定义权——什么样的媒体创新是“好”的、什么样的技术应用是“负责任”的。",
+      exam:"可分析「全球传播秩序」「国际传播话语权」「技术标准与话语权」。与“世界互联网大会”“中国网络媒体论坛”构成中国主导的传播治理话语体系。" }
+  ]}
 };
 
-/* =========================================================
-   专题数据
-   ========================================================= */
 const TOPICS = {
-
-  tech: {
-    name: "🔥 媒介技术与人工智能",
-    desc: "关注 AI、算法、平台技术如何重塑新闻生产与传播生态。这个专题是近年高频考点，答题时注意把「技术能力」和「技术伦理」两个面都覆盖到。",
-    events: [
-      { month: "JAN", from: { month: "01", idx: 2 } },
-      { month: "FEB", from: { month: "02", idx: 1 } },
-      { month: "FEB", from: { month: "02", idx: 2 } },
-      { month: "MAY", from: { month: "05", idx: 0 } },
-      { month: "JUN", from: { month: "06", idx: 1 } }
-    ]
-  },
-
-  international: {
-    name: "国际传播",
-    desc: "从文化出海、技术叙事到国际论坛，观察中国如何在全球传播格局中建构话语权。",
-    events: [
-      { month: "FEB", from: { month: "02", idx: 1 } },
-      { month: "MAY", from: { month: "05", idx: 1 } },
-      { month: "JUN", from: { month: "06", idx: 0 } },
-      { month: "JUN", from: { month: "06", idx: 1 } }
-    ]
-  },
-
-  opinion: {
-    name: "舆论与舆情",
-    desc: "分析热点事件的舆论生成机制、情感传播路径与平台治理逻辑。",
-    events: [
-      { month: "JAN", from: { month: "01", idx: 1 } },
-      { month: "JAN", from: { month: "01", idx: 3 } },
-      { month: "FEB", from: { month: "02", idx: 0 } }
-    ]
-  },
-
-  ethics: {
-    name: "新闻伦理与法规",
-    desc: "聚焦真实性、AI标识、把关机制等伦理与法规议题，是近年论述题的重要落点。",
-    events: [
-      { month: "JAN", from: { month: "01", idx: 2 } },
-      { month: "FEB", from: { month: "02", idx: 2 } },
-      { month: "MAY", from: { month: "05", idx: 0 } }
-    ]
-  },
-
-  marxism: {
-    name: "马克思主义新闻观",
-    desc: "从政策论坛、主流媒体转型等事件切入，理解马新观在当下的实践形态。",
-    events: [
-      { month: "MAR", from: { month: "03", idx: 0 } },
-      { month: "MAR", from: { month: "03", idx: 1 } }
-    ]
-  },
-
-  sports: {
-    name: "体育赛事类",
-    desc: "关注大型体育赛事中的传播策略、媒介事件与民族认同建构。（内容筹备中，逐步补充）",
-    events: []
-  },
-
-  ads: {
-    name: "🔥 广告与品牌营销",
-    desc: "从情绪消费、文创爆款到品牌营销事件，观察消费文化与传播的互动。",
-    events: [
-      { month: "JAN", from: { month: "01", idx: 0 } }
-    ]
-  },
-
-  entertainment: {
-    name: "文娱类",
-    desc: "涵盖影视、综艺、短视频、文化节目等文娱内容引发的传播现象与文化讨论。",
-    events: [
-      { month: "JAN", from: { month: "01", idx: 3 } },
-      { month: "APR", from: { month: "04", idx: 0 } },
-      { month: "MAY", from: { month: "05", idx: 2 } }
-    ]
-  }
+  tech:{ name:"🔥 媒介技术与人工智能",
+    desc:"关注 AI、算法、平台技术如何重塑新闻生产与传播生态。这个专题是近年高频考点，答题时注意把「技术能力」和「技术伦理」两个面都覆盖到。",
+    events:[{month:"JAN",from:{month:"01",idx:2}},{month:"FEB",from:{month:"02",idx:1}},{month:"FEB",from:{month:"02",idx:2}},{month:"MAY",from:{month:"05",idx:0}},{month:"JUN",from:{month:"06",idx:1}}] },
+  international:{ name:"国际传播",
+    desc:"从文化出海、技术叙事到国际论坛，观察中国如何在全球传播格局中建构话语权。",
+    events:[{month:"FEB",from:{month:"02",idx:1}},{month:"MAY",from:{month:"05",idx:1}},{month:"JUN",from:{month:"06",idx:0}},{month:"JUN",from:{month:"06",idx:1}}] },
+  opinion:{ name:"舆论与舆情",
+    desc:"分析热点事件的舆论生成机制、情感传播路径与平台治理逻辑。",
+    events:[{month:"JAN",from:{month:"01",idx:1}},{month:"JAN",from:{month:"01",idx:3}},{month:"FEB",from:{month:"02",idx:0}}] },
+  ethics:{ name:"新闻伦理与法规",
+    desc:"聚焦真实性、AI标识、把关机制等伦理与法规议题，是近年论述题的重要落点。",
+    events:[{month:"JAN",from:{month:"01",idx:2}},{month:"FEB",from:{month:"02",idx:2}},{month:"MAY",from:{month:"05",idx:0}}] },
+  marxism:{ name:"马克思主义新闻观",
+    desc:"从政策论坛、主流媒体转型等事件切入，理解马新观在当下的实践形态。",
+    events:[{month:"MAR",from:{month:"03",idx:0}},{month:"MAR",from:{month:"03",idx:1}}] },
+  sports:{ name:"体育赛事类",
+    desc:"关注大型体育赛事中的传播策略、媒介事件与民族认同建构。（内容筹备中，逐步补充）",
+    events:[] },
+  ads:{ name:"🔥 广告与品牌营销",
+    desc:"从情绪消费、文创爆款到品牌营销事件，观察消费文化与传播的互动。",
+    events:[{month:"JAN",from:{month:"01",idx:0}}] },
+  entertainment:{ name:"文娱类",
+    desc:"涵盖影视、综艺、短视频、文化节目等文娱内容引发的传播现象与文化讨论。",
+    events:[{month:"JAN",from:{month:"01",idx:3}},{month:"APR",from:{month:"04",idx:0}},{month:"MAY",from:{month:"05",idx:2}}] }
 };
 
-/* =========================================================
-   意见反馈
-   ========================================================= */
+/* ==================== 意见反馈 ==================== */
 (function feedback(){
   const toggle = document.getElementById("feedbackToggle");
   const panel  = document.getElementById("feedbackPanel");
@@ -921,67 +1027,51 @@ const TOPICS = {
   const btn    = document.getElementById("feedbackSend");
   const hint   = document.getElementById("feedbackHint");
   if(!toggle || !panel) return;
-
   const TO_EMAIL = "1597668105@qq.com";
 
   toggle.addEventListener("click", () => {
     const isOpen = panel.classList.toggle("is-open");
     toggle.classList.toggle("is-open", isOpen);
-    if(isOpen){
-      setTimeout(() => input && input.focus(), 60);
-    }
+    if(isOpen) setTimeout(() => input && input.focus(), 60);
   });
 
   if(!btn) return;
-
   btn.addEventListener("click", () => {
     const text = input.value.trim();
-
     if(!text){
       hint.textContent = "先写点内容再发送吧～";
       hint.classList.remove("success");
       input.focus();
       return;
     }
-
-    const subject = encodeURIComponent("Wuli新传热点知识库 · 意见反馈");
+    const subject = encodeURIComponent("wuli新传考研热点知识库 · 意见反馈");
     const body    = encodeURIComponent(text);
-
-    window.location.href =
-      `mailto:${TO_EMAIL}?subject=${subject}&body=${body}`;
-
+    window.location.href = `mailto:${TO_EMAIL}?subject=${subject}&body=${body}`;
     hint.textContent = "已打开邮箱客户端，点“发送”就能送达 ✓";
     hint.classList.add("success");
   });
 })();
 
-/* =========================================================
-   渲染：每月热点
-   ========================================================= */
+/* ==================== 每月热点渲染 ==================== */
 const MONTH_ORDER = ["01","02","03","04","05","06"];
 
 (function renderMonthly(){
-
   const trackEl  = document.getElementById("tabTrack");
   const panelsEl = document.getElementById("monthPanels");
   const metaEl   = document.getElementById("headMeta");
 
   const totalMonths = MONTH_ORDER.length;
   const totalEvents = MONTH_ORDER.reduce((s,k) => s + HOTSPOTS[k].events.length, 0);
-  metaEl.innerHTML =
-    `已收录 <b>${totalMonths}</b> 个月<span class="sep">·</span>共 <b>${totalEvents}</b> 条热点`;
+  metaEl.innerHTML = `已收录 <b>${totalMonths}</b> 个月<span class="sep">·</span>共 <b>${totalEvents}</b> 条热点`;
 
-  trackEl.innerHTML = MONTH_ORDER.map((key, i) => {
-    const m = HOTSPOTS[key];
-    return `<button class="tab${i===0?" is-active":""}" data-month="${key}">
-      <span class="en">${m.en}</span>
-    </button>`;
-  }).join("");
+  trackEl.innerHTML = MONTH_ORDER.map((key, i) =>
+    `<button class="tab${i===0?" is-active":""}" data-month="${key}">
+      <span class="en">${HOTSPOTS[key].en}</span>
+    </button>`).join("");
 
   panelsEl.innerHTML = MONTH_ORDER.map((key, i) => {
     const m = HOTSPOTS[key];
     const n = m.events.length;
-
     const eventsHTML = m.events.map((ev, j) => `
       <article class="event-card" data-month="${key}">
         <header class="event-header" role="button" tabindex="0" aria-expanded="false">
@@ -1002,9 +1092,7 @@ const MONTH_ORDER = ["01","02","03","04","05","06"];
           </div>
           <div class="exam-hint">${esc(ev.exam)}</div>
         </div>
-      </article>
-    `).join("");
-
+      </article>`).join("");
     return `<section class="month-panel${i===0?" is-active":""}" id="panel-${key}">
       <div class="panel-intro">
         <p class="intro-line1">本月收录<span class="count">${n}</span>条热点</p>
@@ -1018,13 +1106,8 @@ const MONTH_ORDER = ["01","02","03","04","05","06"];
     const btn = e.target.closest(".tab");
     if(!btn) return;
     const key = btn.dataset.month;
-
-    trackEl.querySelectorAll(".tab").forEach(b =>
-      b.classList.toggle("is-active", b.dataset.month === key)
-    );
-    panelsEl.querySelectorAll(".month-panel").forEach(p =>
-      p.classList.toggle("is-active", p.id === "panel-"+key)
-    );
+    trackEl.querySelectorAll(".tab").forEach(b => b.classList.toggle("is-active", b.dataset.month === key));
+    panelsEl.querySelectorAll(".month-panel").forEach(p => p.classList.toggle("is-active", p.id === "panel-"+key));
   });
 
   panelsEl.addEventListener("click", e => {
@@ -1040,19 +1123,13 @@ const MONTH_ORDER = ["01","02","03","04","05","06"];
     if(e.key !== "Enter" && e.key !== " ") return;
     const header = e.target.closest(".event-header");
     if(!header) return;
-    e.preventDefault();
-    header.click();
+    e.preventDefault(); header.click();
   });
-
 })();
 
-/* =========================================================
-   渲染：专题热点列表 + 详情
-   ========================================================= */
+/* ==================== 专题渲染 ==================== */
 (function renderTopics(){
-
   const catGrid = document.getElementById("catGrid");
-
   catGrid.innerHTML = Object.keys(TOPICS).map(key => {
     const t = TOPICS[key];
     return `<button class="cat-card" data-topic="${key}">
@@ -1069,24 +1146,18 @@ const MONTH_ORDER = ["01","02","03","04","05","06"];
   window.openTopic = function(key){
     const t = TOPICS[key];
     if(!t) return;
-
     topicTitleEl.textContent = t.name;
     topicDescEl.textContent  = t.desc;
     topicMetaEl.innerHTML    = `共 <b>${t.events.length}</b> 条热点`;
 
     if(!t.events.length){
-      topicEventsEl.innerHTML = `
-        <div class="placeholder-note">
-          这个专题的内容正在筹备中，后续会补充热点事件与考点解析。
-          你也可以先到「每月热点」按时间线查看已整理的内容。
-        </div>`;
+      topicEventsEl.innerHTML = `<div class="placeholder-note">这个专题的内容正在筹备中，后续会补充热点事件与考点解析。你也可以先到「每月热点」按时间线查看已整理的内容。</div>`;
     } else {
-      topicEventsEl.innerHTML = t.events.map((ref) => {
+      topicEventsEl.innerHTML = t.events.map(ref => {
         const src = HOTSPOTS[ref.from.month];
         if(!src) return "";
         const ev = src.events[ref.from.idx];
         if(!ev) return "";
-
         return `
           <article class="event-card">
             <header class="event-header" role="button" tabindex="0" aria-expanded="false">
@@ -1107,11 +1178,9 @@ const MONTH_ORDER = ["01","02","03","04","05","06"];
               </div>
               <div class="exam-hint">${esc(ev.exam)}</div>
             </div>
-          </article>
-        `;
+          </article>`;
       }).join("");
     }
-
     showView("topic");
     window.scrollTo(0, 0);
   };
@@ -1135,19 +1204,14 @@ const MONTH_ORDER = ["01","02","03","04","05","06"];
     if(e.key !== "Enter" && e.key !== " ") return;
     const header = e.target.closest(".event-header");
     if(!header) return;
-    e.preventDefault();
-    header.click();
+    e.preventDefault(); header.click();
   });
-
 })();
 
-/* =========================================================
-   视图路由
-   ========================================================= */
+/* ==================== 视图路由 ==================== */
 function showView(viewId){
   const views   = document.querySelectorAll(".view");
   const backBtn = document.getElementById("backBtn");
-
   views.forEach(v => v.classList.toggle("is-active", v.id === "view-" + viewId));
   backBtn.classList.toggle("is-show", viewId !== "home");
   window.scrollTo(0, 0);
