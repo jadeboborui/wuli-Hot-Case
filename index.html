@@ -62,16 +62,6 @@
   }
   a{ color:inherit; }
 
-  /* 进度条：改为强调色，加粗，加微光，更显眼 */
-  .progress-bar{
-    position:fixed; top:0; left:0;
-    height:3px; width:0%;
-    background:var(--accent);
-    z-index:10002;
-    transition:width .1s linear, background .3s;
-    box-shadow:0 0 8px var(--accent), 0 0 3px var(--accent);
-  }
-
   .back-to-top{
     position:fixed; right:16px; bottom:24px; z-index:9000;
     width:42px; height:42px;
@@ -908,8 +898,6 @@
 </head>
 <body>
 
-<div class="progress-bar" id="progressBar"></div>
-
 <div class="theme-float" id="themeFloat" role="group" aria-label="主题切换">
   <div class="tf-options">
     <button data-set-theme="auto">自动</button>
@@ -1107,7 +1095,6 @@
 </main>
 
 <script>
-/* 理论词典 */
 const THEORY_DICT = {
   "使用与满足": "卡茨等人提出。将受众视为主动的媒介使用者，关注受众通过媒介使用满足自身认知、情感、社交等需求，是对早期「强效果论」的重要修正。",
   "符号互动论": "米德、布鲁默等。核心观点：人们通过符号（语言、动作、姿态）在互动中建构意义，社会现实是互动的产物，而非既定的客观存在。",
@@ -1159,7 +1146,6 @@ const THEORY_DICT = {
   "媒体合作": "不同国家、地区媒体之间在内容、技术、平台等方面的协作。"
 };
 
-/* 热点数据 */
 const HOTSPOTS = {
   "01": { en:"JAN", events:[
     { title:"义乌“哭哭马”：一次缝纫失误如何变成全网爆款",
@@ -1300,7 +1286,6 @@ const TOPICS = {
 
 const MONTH_ORDER = ["01","02","03","04","05","06"];
 
-/* 工具 */
 function esc(s){
   return String(s == null ? "" : s)
     .replace(/&/g,"&amp;").replace(/</g,"&lt;")
@@ -1333,7 +1318,6 @@ function isBookmarked(m, i){
   return getBookmarks().indexOf(eventKey(m, i)) >= 0;
 }
 
-/* 渲染卡片 */
 function renderEventCard(ev, monthKey, idx, showIdx){
   const key = eventKey(monthKey, idx);
   const marked = isBookmarked(monthKey, idx);
@@ -1386,7 +1370,6 @@ function renderEventCard(ev, monthKey, idx, showIdx){
   `;
 }
 
-/* 每月热点 */
 (function renderMonthly(){
   const trackEl  = document.getElementById("tabTrack");
   const panelsEl = document.getElementById("monthPanels");
@@ -1428,7 +1411,6 @@ function switchMonth(key){
   panelsEl.querySelectorAll(".month-panel").forEach(p => p.classList.toggle("is-active", p.id === "panel-"+key));
 }
 
-/* 专题 */
 (function renderTopics(){
   const catGrid = document.getElementById("catGrid");
   catGrid.innerHTML = Object.keys(TOPICS).map(key => {
@@ -1472,7 +1454,6 @@ function switchMonth(key){
   });
 })();
 
-/* 时间线 */
 (function renderTimeline(){
   const timelineEl = document.getElementById("timeline");
   const metaEl = document.getElementById("timelineMeta");
@@ -1494,7 +1475,6 @@ function switchMonth(key){
   timelineEl.innerHTML = html;
 })();
 
-/* 我的收藏 */
 function renderBookmarks(){
   const wrap = document.getElementById("bookmarkContent");
   const metaEl = document.getElementById("bookmarkMeta");
@@ -1538,7 +1518,6 @@ function renderBookmarks(){
 }
 renderBookmarks();
 
-/* 卡片交互 */
 document.addEventListener("click", e => {
   const header = e.target.closest(".event-header");
   if(header){
@@ -1612,7 +1591,6 @@ document.addEventListener("keydown", e => {
   header.click();
 });
 
-/* 理论弹窗 */
 function showTheoryPopup(el){
   const popup = document.getElementById("theoryPopup");
   const name = el.dataset.theory;
@@ -1641,7 +1619,6 @@ window.addEventListener("scroll", () => {
   document.getElementById("theoryPopup").classList.remove("is-open");
 }, true);
 
-/* 学习打卡 */
 function todayKey(){
   const d = new Date();
   return d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
@@ -1671,7 +1648,6 @@ function renderCheckin(){
 }
 renderCheckin();
 
-/* 搜索 */
 (function searchModule(){
   const trigger = document.getElementById("searchTrigger");
   const overlay = document.getElementById("searchOverlay");
@@ -1756,7 +1732,6 @@ renderCheckin();
   });
 })();
 
-/* 主题抽屉 + 动态更新状态栏颜色 */
 (function themeSwitcher(){
   const floater = document.getElementById("themeFloat");
   const btns = floater.querySelectorAll("button[data-set-theme]");
@@ -1765,7 +1740,6 @@ renderCheckin();
   const themes = ["auto","default","night","ink","pink","retro"];
   const mq = window.matchMedia("(prefers-color-scheme: dark)");
 
-  /* 从 --bg 变量同步到 meta[name=theme-color] */
   function syncThemeColor(){
     requestAnimationFrame(() => {
       const bg = getComputedStyle(root).getPropertyValue("--bg").trim();
@@ -1870,17 +1844,12 @@ renderCheckin();
   });
 })();
 
-/* 回到顶部 + 进度条 */
+/* 回到顶部（只剩这一个，进度条已删除） */
 (function scrollModule(){
   const backBtn = document.getElementById("backToTop");
-  const progress = document.getElementById("progressBar");
-
   function onScroll(){
     const h = document.documentElement;
     const st = h.scrollTop || document.body.scrollTop;
-    const sh = h.scrollHeight - h.clientHeight;
-    const pct = sh > 0 ? (st / sh) * 100 : 0;
-    progress.style.width = pct + "%";
     backBtn.classList.toggle("is-show", st > 400);
   }
   window.addEventListener("scroll", onScroll, {passive:true});
@@ -1888,7 +1857,6 @@ renderCheckin();
   backBtn.addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
 })();
 
-/* 反馈 */
 (function feedback(){
   const toggle = document.getElementById("feedbackToggle");
   const panel  = document.getElementById("feedbackPanel");
@@ -1921,7 +1889,6 @@ renderCheckin();
   });
 })();
 
-/* 路由 */
 function showView(viewId){
   const views   = document.querySelectorAll(".view");
   const backBtn = document.getElementById("backBtn");
