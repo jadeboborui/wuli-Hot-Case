@@ -6,6 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <title>wuli新传考研热点知识库</title>
 <meta name="theme-color" content="#f7f5f1" id="themeColorMeta">
+<link rel="manifest" href='data:application/manifest+json,{"name":"wuli新传考研热点知识库","short_name":"wuli新传考研","start_url":"./","display":"standalone","background_color":"%23f7f5f1","theme_color":"%23f7f5f1"}'>
 <style>
   html[data-theme="default"]{
     --bg:#f7f5f1; --surface:#ffffff; --ink:#191917; --ink-soft:#6e6960;
@@ -280,16 +281,15 @@
   .checkin.hidden{ display:none; }
   .checkin b{ font-weight:700; font-variant-numeric:tabular-nums; }
 
-  /* 4 个入口 */
   .entries{
     display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
     gap:16px; margin-top:44px;
   }
   .entry{
     position:relative;
     display:flex; flex-direction:column;
-    min-height:200px; padding:24px;
+    min-height:200px; padding:22px;
     background:var(--surface);
     border:var(--card-border);
     border-radius:var(--radius-lg);
@@ -488,9 +488,7 @@
     0%,100%{ box-shadow:var(--card-shadow); }
     20%,60%{ box-shadow:0 0 0 3px var(--brand); }
   }
-  .event-card.is-my-note{
-    border-color:var(--accent);
-  }
+  .event-card.is-my-note{ border-color:var(--accent); }
   html[data-theme="ink"] .event-card{
     border-top:1px solid var(--line);
     border-bottom:1px solid var(--line);
@@ -547,6 +545,7 @@
   html[data-theme="retro"] .event-month{ border:1px solid var(--brand); background:transparent; }
   html[data-theme="retro"] .event-card.is-open .event-month{ background:var(--brand); color:#faf3e0; }
   html[data-theme="retro"] .event-month.mine-month{ border-color:var(--accent); background:var(--accent); color:#fff; }
+
   .event-title{
     margin:0 0 6px; font-size:16.5px; font-weight:700;
     letter-spacing:-.005em; line-height:1.5;
@@ -621,51 +620,6 @@
   html[data-theme="ink"] .theory-tag:hover{ border-color:var(--brand); background:transparent; color:var(--brand); }
   html[data-theme="retro"] .theory-tag{ border-radius:1px; }
 
-  .quote-block{
-    margin-top:14px;
-    padding:14px 18px 14px 22px;
-    background:var(--brand-soft);
-    border-left:3px solid var(--brand);
-    border-radius:0 var(--radius-sm) var(--radius-sm) 0;
-    font-size:14px; line-height:1.8;
-    color:var(--ink); font-style:italic;
-  }
-  .quote-block::before{ content:"“"; margin-right:2px; color:var(--brand); font-size:18px; font-weight:700; }
-  .quote-block::after{ content:"”"; margin-left:2px; color:var(--brand); font-size:18px; font-weight:700; }
-  .framework-block{
-    margin-top:14px; padding:14px 18px;
-    background:var(--tag-bg); border-radius:var(--radius-sm);
-    font-size:13.5px; line-height:1.85; white-space:pre-wrap;
-  }
-  html[data-theme="ink"] .framework-block{ border:1px solid var(--line); background:transparent; }
-  .mock-block{
-    margin-top:14px; padding:14px 18px;
-    background:var(--brand-soft); border-radius:var(--radius-sm);
-    font-size:14px; line-height:1.8;
-  }
-  .mock-block::before{
-    content:"✎ 模拟题"; display:block; margin-bottom:5px;
-    font-size:11.5px; font-weight:700;
-    letter-spacing:.08em; color:var(--brand);
-  }
-  .exams-block{ margin-top:14px; }
-  .exams-block::before{
-    content:"◈ 历年真题关联"; display:block; margin-bottom:8px;
-    font-size:11.5px; font-weight:700;
-    letter-spacing:.08em; color:var(--accent);
-  }
-  .exam-item{
-    padding:10px 14px; margin-bottom:8px;
-    font-size:13.5px; line-height:1.75;
-    background:var(--tag-bg); border-radius:var(--radius-sm);
-    border-left:2px solid var(--accent);
-  }
-  .exam-item:last-child{ margin-bottom:0; }
-  .exam-item .exam-meta{
-    display:block; margin-bottom:2px;
-    font-size:11.5px; font-weight:700;
-    letter-spacing:.04em; color:var(--accent);
-  }
   .exam-hint{
     margin-top:14px; padding:14px 18px;
     background:var(--brand-soft); border-radius:var(--radius-sm);
@@ -680,12 +634,12 @@
     padding:10px 0 10px 16px; background:transparent;
   }
   .exam-hint::before{
-    content:"✦ 考点角度"; display:block; margin-bottom:5px;
+    content:"✦ 答题金句"; display:block; margin-bottom:5px;
     font-size:11.5px; font-weight:700;
     letter-spacing:.08em; color:var(--brand);
   }
-  html[data-theme="ink"] .exam-hint::before{ content:"考点角度"; letter-spacing:.14em; }
-  html[data-theme="retro"] .exam-hint::before{ content:"考点角度"; letter-spacing:.14em; }
+  html[data-theme="ink"] .exam-hint::before{ content:"答题金句"; letter-spacing:.14em; }
+  html[data-theme="retro"] .exam-hint::before{ content:"答题金句"; letter-spacing:.14em; }
 
   .theory-popup{
     position:fixed; z-index:9997;
@@ -865,7 +819,6 @@
   }
   .hl-item-remove:hover{ color:var(--accent); background:var(--brand-soft); }
 
-  /* 笔记页顶部操作 */
   .notes-toolbar{
     display:flex; flex-wrap:wrap;
     align-items:center; gap:8px;
@@ -894,7 +847,6 @@
   }
   .tool-btn.secondary:hover{ color:var(--brand); }
 
-  /* 数据说明 */
   .data-notice{
     margin-top:22px;
     padding:14px 18px;
@@ -907,7 +859,6 @@
   }
   .data-notice b{ color:var(--ink); font-weight:600; }
 
-  /* 笔记编辑器 */
   .note-editor{
     position:fixed; inset:0;
     background:rgba(0,0,0,.45);
@@ -1121,7 +1072,6 @@
 </div>
 <div class="toast" id="toast"></div>
 
-<!-- 笔记编辑器 -->
 <div class="note-editor" id="noteEditor">
   <div class="ne-panel">
     <div class="ne-head">
@@ -1155,20 +1105,16 @@
         <textarea class="ne-textarea" id="neSub" placeholder="一两句话说明这条笔记的主题"></textarea>
       </div>
       <div class="ne-field">
-        <label class="ne-label">理论标签（用 · 分隔，例如：情感传播 · 算法推荐）</label>
-        <input class="ne-input" id="neTheory" type="text" placeholder="理论1 · 理论2">
+        <label class="ne-label">考点角度（用 · 分隔，例如：情感传播 · 算法推荐）</label>
+        <input class="ne-input" id="neTheory" type="text" placeholder="考点1 · 考点2">
       </div>
       <div class="ne-field">
         <label class="ne-label">事件分析</label>
         <textarea class="ne-textarea" id="neAnalysis" placeholder="展开你的分析" style="min-height:120px;"></textarea>
       </div>
       <div class="ne-field">
-        <label class="ne-label">考点角度</label>
-        <textarea class="ne-textarea" id="neExam" placeholder="这道题可以从哪些角度回答"></textarea>
-      </div>
-      <div class="ne-field">
-        <label class="ne-label">金句（可选）</label>
-        <textarea class="ne-textarea" id="neQuote" placeholder="可以直接背的句子"></textarea>
+        <label class="ne-label">答题金句</label>
+        <textarea class="ne-textarea" id="neExam" placeholder="可以直接背的句子"></textarea>
       </div>
       <div class="ne-field">
         <label class="ne-label">答题框架（可选）</label>
@@ -1220,7 +1166,7 @@
           </div>
           <h2 class="entry-title">每月热点</h2>
           <p class="entry-desc">按月份归档热点和自己的笔记。</p>
-          <div class="entry-foot"><span class="entry-meta">2026 年 · 6 期 · 16 条</span></div>
+          <div class="entry-foot"><span class="entry-meta">2026 年 · 6 期 · 19 条</span></div>
           <span class="entry-arrow" aria-hidden="true">→</span>
         </button>
 
@@ -1235,7 +1181,7 @@
           </div>
           <h2 class="entry-title">专题热点</h2>
           <p class="entry-desc">按专题聚合热点。</p>
-          <div class="entry-foot"><span class="entry-meta">8 个专题 · 持续更新</span></div>
+          <div class="entry-foot"><span class="entry-meta">6 个专题 · 持续更新</span></div>
           <span class="entry-arrow" aria-hidden="true">→</span>
         </button>
 
@@ -1300,7 +1246,7 @@
       <header class="page-head">
         <div class="head-row">
           <h1>专题热点</h1>
-          <div class="head-meta">已规划 <b>8</b> 个专题</div>
+          <div class="head-meta">已规划 <b>6</b> 个专题</div>
         </div>
       </header>
       <div class="cat-grid" id="catGrid"></div>
@@ -1383,195 +1329,323 @@
 </main>
 
 <script>
-/* 理论词典 */
+/* ============ 理论词典 ============ */
 const THEORY_DICT = {
-  "使用与满足": "卡茨等人提出。将受众视为主动的媒介使用者，关注受众通过媒介使用满足自身认知、情感、社交等需求。",
-  "符号互动论": "米德、布鲁默等。人们通过符号在互动中建构意义，社会现实是互动的产物。",
-  "情绪消费": "消费者为获得情绪价值而非使用价值产生购买行为的现象。",
-  "情感传播": "以情感作为核心驱动力的传播模式，强调情绪共鸣、共情在信息扩散中的作用。",
-  "算法推荐": "平台根据用户历史行为、兴趣偏好等数据，通过算法自动推送信息的机制。",
-  "参与式文化": "詹金斯提出。指媒介消费者同时也是内容生产者与传播者的文化现象。",
-  "乡土怀旧": "对乡村生活、传统民俗的情感追忆。",
-  "新闻真实性": "新闻的生命线。要求报道与客观事实相符，包括细节真实、整体真实、本质真实。",
+  "真实性原则": "新闻与纪实摄影等领域的根本原则，要求内容与客观事实相符，不得以虚构或技术合成内容冒充真实记录。",
+  "AI监管": "对人工智能研发与应用进行的规范与管理，涉及内容标识、透明度、责任归属等制度安排。",
   "技术伦理": "技术研发与应用中的道德规范和价值判断。",
-  "把关人": "卢因提出，怀特引入新闻研究。指对信息进行筛选、加工、决策的人或组织。",
-  "视觉传播": "以图像、影像为主要载体的传播形态。",
-  "文化记忆": "扬·阿斯曼提出。指一个社会通过媒介保存并传承的集体记忆。",
-  "集体情感": "涂尔干提出。指群体共同体验到的情感状态。",
-  "仪式传播": "凯瑞提出「传播的仪式观」。强调传播是共享信仰、维系共同体的仪式性活动。",
-  "青年文化认同": "青年群体通过消费、媒介使用等方式建构自我身份与群体归属的过程。",
-  "算法治理": "对算法设计、推荐机制等环节进行规范与监管。",
-  "信息生态": "把信息环境看作生态系统，关注各主体间的动态平衡。",
-  "平台责任": "平台在内容审核、算法透明等方面应承担的义务。",
-  "媒介技术": "传播活动中运用的技术手段与工具。",
-  "国家形象传播": "一个国家通过媒介等方式传递自身形象的系统性活动。",
-  "技术叙事": "以技术为核心内容的传播模式。",
-  "AI标识": "对 AI 生成内容进行明确标注。",
-  "平台规制": "对平台运营等环节的监管制度与政策。",
-  "虚假信息治理": "针对虚假信息、谣言等的识别、处置机制。",
-  "主流媒体转型": "传统主流媒体向新媒体、融合媒体转型的过程。",
-  "内容生态": "内容生产、分发、消费形成的整体环境。",
+  "技术可供性": "技术本身具有的、能够影响传播行为的特性，如低成本、高速度、大规模生成等。",
+  "生成式AI传播风险": "生成式人工智能在传播过程中可能带来的信息失序、网络安全失守等风险。",
+  "媒介规范理论": "关于媒介应当如何运行的规范性理论，涉及国家、社会对媒介的制度性介入。",
+  "媒介技术与春晚": "春晚作为大众文化场景，是人形机器人等前沿技术进入公众视野的重要传播场域。",
+  "社会认知": "公众对某一事物的整体认识与理解方式，媒介在塑造社会认知中起着关键作用。",
+  "技术叙事": "以技术为核心内容或叙事线索的传播模式，强调技术能力本身作为国家或组织形象的表征。",
+  "技术想象": "公众对技术未来应用与影响的集体想象，媒介是塑造技术想象的重要力量。",
+  "媒介事件": "戴扬和卡茨提出。指经过组织化、策划化的媒介传播事件，能够吸引大规模受众共同关注。",
+  "国家形象": "一个国家在国际社会中被感知和评价的整体印象。",
+  "AI Agent": "人工智能智能体，能够自主感知环境、做出决策并采取行动以完成特定目标。",
+  "媒介作为入口": "媒介不再只是信息通道，而是连接用户与服务的综合入口。",
+  "平台生态": "平台内部各主体（内容生产者、服务提供者、用户等）相互依存形成的整体环境。",
+  "使用与满足": "卡茨等人提出。将受众视为主动的媒介使用者，关注受众通过媒介使用满足自身需求。",
+  "技术赋能": "通过技术手段提升某一领域的能力和效率。",
+  "数字记忆": "以数字形式保存和传播的记忆，具有持久性、可检索性和可重组性。",
+  "媒介记忆": "媒介对历史事件和集体经验的记录与再现，是集体记忆的重要载体。",
+  "情感传播": "以情感作为核心驱动力的传播模式，强调情绪共鸣、共情在信息扩散中的作用。",
+  "集体记忆": "哈布瓦赫提出。指一个群体共享的、关于过去的记忆。",
+  "参与式传播": "受众主动参与内容生产与传播的传播形态。",
+  "网络传播生态": "网络空间中内容生产、分发、消费、治理各环节形成的整体环境。",
   "媒体融合": "传统媒体与新兴媒体在内容、渠道、平台等方面的深度融合。",
-  "算法向善": "主张算法设计以服务公共利益为价值取向。",
-  "AI与内容生产": "人工智能技术参与内容创作、编辑、分发。",
-  "智能传播": "以人工智能技术为核心的传播形态。",
-  "微短剧": "单集时长较短的网络剧集形态。",
+  "主流媒体转型": "传统主流媒体向新媒体、融合媒体转型的过程。",
+  "平台治理": "对平台运营、内容生产、数据使用等环节的监管与规范。",
+  "技术赋能文化传播": "技术手段对文化传播方式与效果的提升。",
+  "文明交流互鉴": "不同文明之间相互交流、相互借鉴、共同发展的过程。",
+  "传统文化传播": "以传统文化为内容的传播活动。",
+  "媒介真实": "媒介所呈现的真实，是经过媒介选择、加工后的真实。",
+  "AIGC伦理": "人工智能生成内容所涉及的伦理问题。",
+  "智能媒体": "以人工智能技术为核心的媒体形态。",
   "视听传播": "以音频、视频为主要载体的传播形态。",
-  "内容精品化": "内容生产从数量扩张转向质量提升的趋势。",
-  "用户研究": "对媒介用户的动机、行为、偏好等进行系统研究。",
-  "行业数据": "对行业规模、结构、趋势的量化描述。",
-  "AI伦理": "人工智能研发与应用中的伦理问题。",
-  "网络文明": "网络空间中形成的价值观念、行为规范的综合体现。",
-  "技术治理": "对技术发展及其社会影响进行引导、规范、管理的制度。",
+  "平台化传播": "以平台为核心节点的传播模式。",
+  "技术异化": "技术从工具变为支配人的力量，反过来控制人。",
+  "劳动主体性": "劳动者在劳动过程中的主体地位与自主性。",
+  "数字人": "以数字技术构建的虚拟人物形象。",
+  "版权伦理": "涉及版权归属、使用与保护的伦理规范。",
+  "场景营销": "将品牌嵌入消费者具体生活场景的营销方式。",
+  "品牌传播": "以品牌为核心内容的传播活动。",
+  "广告创意": "广告活动中最引人注目的环节，是驱使广告人制定并实施广告讯息战略的力量。",
+  "生活方式营销": "以消费者生活方式为切入点的营销方式。",
+  "品牌形象": "消费者对品牌的整体感知与印象。",
+  "AI治理": "对人工智能研发、应用及其社会影响的规范与管理。",
+  "算法治理": "对算法设计、推荐机制等环节进行规范与监管。",
+  "技术向善": "主张技术发展应以服务公共利益为价值取向。",
+  "传播伦理": "传播活动中应遵循的道德规范与价值准则。",
+  "文化出海": "本土文化产品向海外市场传播的过程。",
+  "国际传播": "以国家社会为基本单位，以大众传播为支柱的国与国之间的传播。",
+  "地方文化传播": "以地方特色文化为内容的传播活动。",
+  "文化折扣": "跨文化传播中，文化产品因文化差异而在异文化语境中价值减损的现象。",
+  "情感共鸣": "受众与传播内容之间产生的情感共振。",
+  "用户自传播": "用户自发进行内容传播的行为。",
+  "青年亚文化": "青年群体创造的、区别于主流文化的文化形态。",
+  "媒介文化": "媒介所塑造和传播的文化形态。",
+  "符号互动": "人们通过符号在互动中建构意义的过程。",
+  "情绪传播": "以情绪为核心驱动力的传播模式。",
+  "社会情绪": "一定时期内社会成员共同的情绪状态。",
+  "媒体转型": "媒体在技术、内容、机制等方面的转型。",
+  "人机协同": "人与机器在传播过程中相互配合、协同工作。",
+  "新闻伦理": "新闻传播活动中应遵循的道德规范。",
+  "体育媒介事件": "以体育赛事为核心、经由媒介传播形成的大规模媒介事件。",
+  "国家传播能力": "一个国家在信息生产、分发、影响国际舆论等方面的综合能力。",
+  "技术赋能传播": "技术对传播能力与效率的提升。",
+  "品牌全球化传播": "品牌在全球范围内的传播活动。",
+  "大众体育": "面向普通民众的、以强身健体和娱乐为目的的体育活动。",
   "文化传播": "以文化内容为对象的传播活动。",
-  "传播基础设施": "支撑传播活动的物质与制度基础。",
-  "国家传播能力": "一个国家在信息生产、分发方面的综合能力。",
-  "口碑传播": "依靠受众自发分享形成的传播模式。",
-  "文化认同": "个体或群体对特定文化的归属感。",
-  "媒体创新": "媒体在技术、内容、机制等方面的创新实践。",
-  "新闻专业主义": "新闻从业者应遵循的专业理念与规范。",
-  "AI与新闻业": "AI 技术在新闻各环节的应用及影响。",
-  "全球传播秩序": "全球范围内信息流动的结构与规则。",
-  "媒体合作": "不同国家、地区媒体之间的协作。"
+  "整合营销传播": "以直接影响消费者购买行为为目标，将所有消费者与企业的接触点当作传达讯息的渠道，运用综合手段进行有力传播的过程。",
+  "IP跨界": "不同领域的IP进行合作，形成新的产品或传播形态。",
+  "品牌资产": "品牌所拥有的、能够带来附加价值的无形资产。",
+  "AIGC内容生产": "人工智能生成内容的生产方式。",
+  "技术赋能创意": "技术对创意表达能力的提升。",
+  "媒介仪式": "以媒介为载体的仪式性传播活动。",
+  "用户共创": "品牌与用户共同创作内容、产品或活动的方式。",
+  "主体性": "人在实践活动中表现出的自主性、能动性和创造性。",
+  "数字劳动": "以数字平台为载体的劳动形态。",
+  "人机关系": "人与机器之间的互动与相互影响关系。",
+  "注意力机制": "在信息过载环境中，内容生产者争夺受众注意力的机制。",
+  "文化产业": "以文化内容为核心产品的产业形态。",
+  "符号反叛": "通过反常规的符号表达对主流规范进行挑战。"
 };
 
-/* 热点数据 */
+/* ============ 热点数据 ============ */
 const HOTSPOTS = {
   "01": { en:"JAN", events:[
-    { title:"义乌“哭哭马”：一次缝纫失误如何变成全网爆款",
-      sub:"因工人误将小马嘴角缝反，委屈脸玩偶意外走红，义乌商家48小时内完成从发现到加急生产的决策链条。",
-      theory:"情绪消费 · 符号互动论 · 使用与满足",
-      analysis:"“哭哭马”的传播动力不在产品功能，而在它承载的“不完美真实感”。传统生肖文创清一色喜庆吉祥，哭哭马提供了一个反模板的情绪出口——网友通过转发和二次创作，把“委屈”投射为职场焦虑、学业压力的替代表达。义乌商家的快速响应则展示了平台经济下“快反供应链”的信息敏感度。",
-      exam:"可从「情绪传播」「消费文化」「平台经济与快反供应链」切入。哭哭马是“反完美人设”的典型论据。",
-      quote:"", framework:"", mockQuestion:"", relatedExams:[] },
-    { title:"重庆“呆呆”摇人杀猪：一条求助视频涨粉200万",
-      sub:"女孩因父亲年迈按不住年猪，随手发抖音求助，上千网友跨省奔赴，两天涨粉超170万。",
-      theory:"情感传播 · 算法推荐 · 参与式文化 · 乡土怀旧",
-      analysis:"事件的核心驱动力是“质朴真实”与“集体乡愁”的共振。呆呆的求助没有任何策划痕迹，恰恰是这种“非表演性”击穿了算法对“真实感”的识别偏好。主流媒体后续介入，将乡土文化带入公共视野，完成了从“流量事件”到“文化议题”的升格。",
-      exam:"适合分析「算法与真实性的悖论」「情感传播机制」「平台造星逻辑」。",
-      quote:"", framework:"", mockQuestion:"", relatedExams:[] },
-    { title:"AI生成图片获摄影比赛一等奖：当“骑楼旧光”骗过评委",
-      sub:"华住集团旗下酒店摄影大赛一等奖作品《骑楼旧光》被网友质疑为AI生成，后被撤下。",
-      theory:"新闻真实性 · 技术伦理 · 把关人 · 视觉传播",
-      analysis:"这张图片的“破绽”在于细节：建筑纹理、光影逻辑、文字残留。网友充当了“民间鉴假”的角色，而赛事评委却未能识别。这说明面对AI生成内容，传统的视觉经验正在失效。",
-      exam:"核心考点是「新闻/纪实摄影的真实性原则」「AI生成内容对把关机制的挑战」「技术伦理」。",
-      quote:"", framework:"", mockQuestion:"", relatedExams:[] },
-    { title:"00后陈欣妍长城哽咽诵诗：500万点赞背后的文化共鸣",
-      sub:"湖南大四女生独自从湖南到北京，在八达岭长城含泪朗诵《清平乐·六盘山》，视频获超500万点赞。",
-      theory:"文化记忆 · 集体情感 · 仪式传播 · 青年文化认同",
-      analysis:"长城作为一个“仪式性空间”，为朗诵提供了无法复制的场域能量。短视频记录下的“哽咽”是情感真实性的最强信号。这折射出青年一代对宏大叙事的态度变化：不是排斥，而是需要“真实的人”去承载。",
-      exam:"适合「仪式传播」「文化记忆」「青年文化认同」方向。",
-      quote:"", framework:"", mockQuestion:"", relatedExams:[] }
+    {
+      title:"AI生成图片“骑楼旧光”获摄影比赛一等奖",
+      sub:"《骑楼旧光》因画面亮度低，评委未能辨识其AI生成痕迹而获一等奖；当图片调亮后，AI破绽暴露，作品被撤下。",
+      theory:"真实性原则 · 技术伦理 · AI监管",
+      analysis:"《骑楼旧光》因画面亮度低，评委未能辨识其AI生成痕迹而获一等奖；当图片调亮后，AI破绽暴露，作品被撤下。这提醒我们，AI生成内容的使用必须明确限度和红线，也暴露出在AI生成内容日趋逼真的背景下，识别与监管机制仍待提升，真实性原则与技术伦理面临新挑战。",
+      exam:"在AI生成内容日趋逼真的时代，真实性原则与技术伦理正面临新的挑战，AI使用的限度与红线必须明确。",
+      quote:"", framework:"", mockQuestion:"", relatedExams:[]
+    },
+    {
+      title:"元宝AI“骂人”与生成式AI传播风险",
+      sub:"网友在使用腾讯元宝AI时遭遇侮辱性回复，引发对AI大模型输出失控的担忧。",
+      theory:"技术可供性 · 生成式AI传播风险 · 媒介规范理论",
+      analysis:"从技术可供性角度看，AI大模型具有低质成本、高速度生成的特点，这使得信息失序成为可能；从生成式AI传播风险角度看，AI的失控输出会带来信息传播失序、网络安全失守的双重风险。这一事件暴露了当前监管滞后于技术发展的现实困境——当AI具备大规模生成内容的能力，传统的事后审核机制往往来不及反应，必须建立事前、事中、事后全链条的规范体系。",
+      exam:"AI输出失控不是单一技术问题，而是技术、制度、伦理三重因素叠加的结果。",
+      quote:"", framework:"", mockQuestion:"", relatedExams:[]
+    }
   ]},
   "02": { en:"FEB", events:[
-    { title:"网信办启动“清朗”专项行动，整治“数字泔水”",
-      sub:"中央网信办开展为期1个月的春节网络环境专项行动，重点整治利用AI生成低营养、虚假信息等“数字泔水”。",
-      theory:"算法治理 · 信息生态 · 平台责任",
-      analysis:"“数字泔水”概念的核心不是内容“假”，而是内容“空”——用AI批量生产的、看似无害但毫无信息增量的内容，借助算法推荐持续占据用户注意力。专项行动将治理对象从“违法信息”扩展到“低质信息”，意味着监管逻辑从底线管控走向生态建设。",
-      exam:"核心考点「算法治理」「信息生态」「平台责任」。",
-      quote:"", framework:"", mockQuestion:"", relatedExams:[] },
-    { title:"2026春晚人形机器人表演引发国际关注",
-      sub:"央视春晚上人形机器人与功夫演员合作表演武术，CNN等外媒进行报道，被称为“中国技术展示”。",
-      theory:"媒介技术 · 国家形象传播 · 技术叙事",
-      analysis:"春晚的人形机器人表演不只是“节目”，更是一次精心设计的技术叙事。机器人与功夫的结合，在符号层面将“中国制造”从“廉价代工”转向“精密创新”。",
-      exam:"可从「媒介技术与国家形象」「技术叙事」「国际传播中的符号选择」角度切入。",
-      quote:"", framework:"", mockQuestion:"", relatedExams:[] },
-    { title:"AI生成视频未标注被处置：多个账号因虚构内容被处理",
-      sub:"微博、快手、B站等平台多个账号因发布未标注AI生成的虚构视频被依法处置。",
-      theory:"AI标识 · 平台规制 · 虚假信息治理",
-      analysis:"这一批处置的关键不在于“内容假”，而在于“未标注”。AI生成内容本身不违规，但未标识的AI内容在传播中会被受众当作真实信息接收，造成认知混淆。",
-      exam:"考点「AI标识制度」「平台内容审核」「虚假信息治理」。",
-      quote:"", framework:"", mockQuestion:"", relatedExams:[] }
+    {
+      title:"2026春晚人形机器人表演",
+      sub:"春晚作为具有广泛社会影响力的大众文化场景，将人形机器人、武术等元素融入大型文化节目，使前沿智能技术从实验室走向大众传播场景。",
+      theory:"媒介技术与春晚 · 社会认知 · 技术叙事 · 技术想象 · 媒介事件 · 国家形象",
+      analysis:"大众媒介能够将抽象技术转化为可感知的文化景观，在传播技术的同时，也塑造公众对技术未来的社会想象。原本抽象的人工智能、人形机器人转化为可观看、可理解、可讨论的文化spectacle，使技术从专业领域进入普通人的日常认知，并进一步激发公众对智能技术未来应用的想象。同时，机器人技术与武术、春节等文化符号结合，也使技术展示具有文化表达功能。媒介技术在这里不只是“传播技术”，本身也成为被传播、被观看和被赋予意义的内容。",
+      exam:"可感知的文化景观，在传播技术的同时，也塑造公众对技术未来的社会想象。",
+      quote:"", framework:"", mockQuestion:"", relatedExams:[]
+    },
+    {
+      title:"千问AI免单奶茶爆火",
+      sub:"千问AI通过智能体帮助用户完成点单、优惠等消费操作，引发“AI帮你买东西”的传播热潮，体现AI从信息工具向行动入口转变。",
+      theory:"AI Agent · 媒介作为入口 · 平台生态 · 使用与满足 · 技术赋能",
+      analysis:"千问“免单奶茶”让消费者直观看到AI Agent的行动能力：用户不再只是向AI提问，而是直接提出消费需求，由AI连接平台、服务和交易环节。AI由“回答问题的媒介”进一步成为“替用户完成行动的媒介”。这一变化也意味着平台竞争正在从单纯的信息入口竞争延伸到服务入口竞争。谁能够成为用户连接内容、平台与现实服务的入口，谁就可能掌握新的用户关系和商业空间。",
+      exam:"AI正在从信息中介走向行动中介，改变的不只是信息获取方式，更是人与平台、服务和消费之间的连接方式。",
+      quote:"", framework:"", mockQuestion:"", relatedExams:[]
+    },
+    {
+      title:"2026米兰冬奥会",
+      sub:"2026米兰冬奥会成为体育媒介事件，中国媒体、品牌与科技企业通过超高清、AI、跨平台内容、品牌营销和用户共创等方式拓展国际传播空间。",
+      theory:"体育媒介事件 · 国家形象 · 国际传播 · 技术赋能传播 · 品牌全球化传播 · 参与式传播",
+      analysis:"米兰冬奥会体现了体育赛事从“赛事转播”向“综合传播场景”的转变。中国媒体通过超高清、AI等技术提升赛事呈现，同时借助运动员故事、短视频和海外平台进行人格化、故事化表达，使国际传播不只是传播比赛结果，更是传播运动员、体育文化和中国故事。与此同时，品牌与科技企业通过运动员、产品、文化符号、AI生成内容和社交媒体参与赛事传播，使体育、商业、科技与文化形成新的传播组合。体育媒介事件因此成为国家形象、品牌形象和文化传播的综合场域。",
+      exam:"体育赛事不仅是体育传播的场域，也是国家形象、品牌价值与文化符号进行全球传播的重要媒介事件。",
+      quote:"", framework:"", mockQuestion:"", relatedExams:[]
+    },
+    {
+      title:"可灵AI纸手机短片承载隔代思念",
+      sub:"可灵AI生成的“纸手机”短片借助AI视觉生成技术表达祖孙之间的情感记忆，以技术创新承载跨代际的私人情感。",
+      theory:"AIGC内容生产 · 情感传播 · 技术赋能创意 · 媒介仪式 · 用户共创",
+      analysis:"可灵AI降低了普通人进行视觉叙事的门槛，使原本难以影像化的家庭记忆能够被转化为具有视觉感染力的内容。技术在这里并非传播目的，而是情感表达的工具。这一案例说明AIGC正在改变内容生产关系：过去需要专业团队才能完成的视觉表达，如今普通用户也可以参与。由此，生成式AI不仅改变内容生产效率，也可能改变普通人的自我表达和情感传播方式。",
+      exam:"AIGC的价值不只是降低内容生产门槛，更在于让普通人获得将私人记忆转化为公共表达的技术能力。",
+      quote:"", framework:"", mockQuestion:"", relatedExams:[]
+    }
   ]},
   "03": { en:"MAR", events:[
-    { title:"2026中国网络媒体论坛：主流媒体与多元主体“共创生态”",
-      sub:"3月28-29日在郑州举行，主题为“发挥主流媒体引领力 激发多元主体创造力——共创繁荣网络内容生态”。",
-      theory:"主流媒体转型 · 内容生态 · 媒体融合",
-      analysis:"论坛主题中“引领力”与“创造力”的并置值得注意：主流媒体不再被定位为“唯一生产者”，而是生态中的“引领者”。这意味着媒体融合进入新阶段——从“建平台、做产品”转向“定规则、搭生态”。",
-      exam:"核心考点「媒体融合」「主流媒体转型」「内容生态治理」。",
-      quote:"", framework:"", mockQuestion:"", relatedExams:[] },
-    { title:"数智赋能正能量传播大会：AI如何“向善”",
-      sub:"论坛特色活动，展示《每日读画》《算法护航》等AI赋能内容生产的创新实践，聚焦“算法向善”。",
-      theory:"算法向善 · AI与内容生产 · 智能传播",
-      analysis:"“算法向善”从口号走向案例展示，说明技术伦理的讨论正在从“批判”转向“设计”。展示的实践项目集中在文化传播和公共服务领域，避开了商业平台的流量逻辑。",
-      exam:"可分析「智能传播的公共性」「算法价值观」「AI与主流价值传播」。",
-      quote:"", framework:"", mockQuestion:"", relatedExams:[] }
+    {
+      title:"张雪峰去世与数字悼念",
+      sub:"张雪峰去世后，大量网友通过短视频、评论、旧内容和社交媒体表达悼念，使个人记忆借助数字媒介持续存在并形成集体情感传播。",
+      theory:"数字记忆 · 媒介记忆 · 情感传播 · 集体记忆 · 参与式传播",
+      analysis:"数字媒介改变了传统意义上的“死亡—消失”关系：个人过去生产的文字、视频、直播内容会继续存在，并在特定事件触发后被重新发现、剪辑和传播。个体死亡由此进入持续性的媒介再生产过程。同时，网友通过评论、转发、二创等方式参与数字悼念，使私人情感逐渐汇聚为公共情感，并形成一种由普通用户共同生产的集体记忆。",
+      exam:"在数字媒介时代，死亡并不意味着传播意义上的消失，数字痕迹使个体记忆得以被持续保存、再生产与集体化。",
+      quote:"", framework:"", mockQuestion:"", relatedExams:[]
+    },
+    {
+      title:"2026中国网络媒体论坛",
+      sub:"2026中国网络媒体论坛围绕网络内容生态、主流媒体引领与多元主体创造等议题展开，体现网络传播从“内容生产”走向“生态治理”。",
+      theory:"网络传播生态 · 媒体融合 · 参与式传播 · 主流媒体转型 · 平台治理",
+      analysis:"网络传播环境已经从传统媒体主导的单向内容生产，转向平台、媒体、机构、创作者和普通用户共同参与的复杂生态。主流媒体面对的不再只是“如何生产内容”，而是如何连接不同主体、形成传播协同并维护内容生态。因此，媒体融合正在从媒介形态层面的融合进一步走向生产机制、传播渠道、用户关系和生态治理的融合。",
+      exam:"媒体融合的深层变化，不只是“把内容搬到网上”，而是从单一内容生产转向多主体协同的网络传播生态。",
+      quote:"", framework:"", mockQuestion:"", relatedExams:[]
+    },
+    {
+      title:"AI复原孔子与苏格拉底跨文明辩论",
+      sub:"AI以数字化方式呈现孔子与苏格拉底跨文明对话，将古代思想资源重新转化为当代大众可感知、可参与的传播内容。",
+      theory:"技术赋能文化传播 · 文明交流互鉴 · 传统文化传播 · 媒介真实 · AIGC伦理",
+      analysis:"AI让传统文化传播从书籍、课堂等形式进一步走向可视化、拟人化和沉浸式表达，使古代思想进入新的大众传播语境。技术由单纯的传播工具转变为文化内容再生产的重要参与者。但AI“复原”并不等于历史人物真实再现。文化传播越依赖技术想象，越需要处理好历史真实性、文化准确性与艺术表达之间的关系，使技术成为文明交流的桥梁，而不是对历史的替代。",
+      exam:"技术可以重新激活传统文化，但文化传播的创新不能以牺牲历史真实性和文化准确性为代价。",
+      quote:"", framework:"", mockQuestion:"", relatedExams:[]
+    },
+    {
+      title:"《SHIT》“期刊”",
+      sub:"《SHIT》以极具冲击力的名称、非传统内容形态和青年文化表达进入网络传播，引发关于亚文化、反规范表达和媒介创新的讨论。",
+      theory:"青年亚文化 · 媒介文化 · 符号反叛 · 注意力机制 · 文化产业",
+      analysis:"《SHIT》的传播首先体现了网络时代文化产业对传统媒介规范的挑战：通过极端化、戏谑化甚至反常规的符号表达制造注意力，再将这种注意力转化为青年群体的身份表达和文化认同。其传播逻辑说明，在信息高度过载的环境下，内容生产者不仅需要回答“传播什么”，还需要解决“如何让内容被看见”。但注意力获得并不意味着文化价值自动成立，青年亚文化也需要在商业化、平台化传播过程中保持自身的表达空间。",
+      exam:"在注意力高度稀缺的网络环境中，反常规符号能够成为传播资源，但真正决定文化生命力的仍是符号背后的群体认同与意义生产。",
+      quote:"", framework:"", mockQuestion:"", relatedExams:[]
+    }
   ]},
   "04": { en:"APR", events:[
-    { title:"第十三届中国网络视听大会：微短剧进入“精品扶持”阶段",
-      sub:"4月15日在成都开幕，发布《中国网络视听发展研究报告（2026）》，推出微短剧精品扶持计划。",
-      theory:"微短剧 · 视听传播 · 内容精品化",
-      analysis:"微短剧从“流量野蛮生长”进入“精品扶持”阶段，标志着监管与市场的关系从“事后整治”转向“事前引导”。扶持计划以主题创作为抓手，实质上是在用主流议题为微短剧“正名”。",
-      exam:"核心考点「微短剧的传播逻辑与治理」「网络视听内容生态」。",
-      quote:"", framework:"", mockQuestion:"", relatedExams:[] },
-    { title:"《中国网络视听发展研究报告（2026）》发布",
-      sub:"报告在大会开幕式发布，涵盖用户规模、内容消费、技术应用等维度的年度数据。",
-      theory:"视听传播 · 用户研究 · 行业数据",
-      analysis:"报告的核心价值在于提供“行业基准线”。备考时重点关注：短视频用户增长是否见顶、长视频与短视频的时长竞争、AI生成内容在视听领域的渗透率。",
-      exam:"适合作为「视听传播」「用户行为」「行业变迁」类题目的数据支撑。",
-      quote:"", framework:"", mockQuestion:"", relatedExams:[] }
+    {
+      title:"第十三届中国网络视听大会",
+      sub:"第十三届中国网络视听大会聚焦产业发展、人工智能、微短剧、内容创新等议题，体现视听传播进入智能化、平台化和产业融合阶段。",
+      theory:"媒介融合 · 智能媒体 · 视听传播 · 平台化传播 · 技术赋能",
+      analysis:"网络视听已经从单一的视频内容形态发展为连接平台、技术、内容、用户和产业的综合传播生态。AI降低内容生产门槛、算法影响内容分发、平台重构用户观看方式，使网络视听呈现生产智能化、分发算法化、消费移动化的特点。但技术扩张也带来内容同质化、版权、真实性和价值导向等问题，因此网络视听的发展需要同时关注技术创新与内容生态治理。",
+      exam:"网络视听的变化不是“视频更清晰了”，而是技术、平台、内容与用户关系正在被重新组织。",
+      quote:"", framework:"", mockQuestion:"", relatedExams:[]
+    },
+    {
+      title:"爱奇艺AI艺人库引争议",
+      sub:"爱奇艺推出AI艺人相关应用后引发关于数字演员、版权、演员主体性和技术异化的讨论，折射AI进入文娱生产后的身份与权利问题。",
+      theory:"技术异化 · 劳动主体性 · 媒介技术 · 数字人 · 版权伦理",
+      analysis:"AI艺人能够降低部分内容生产成本、提高制作效率，但也可能使演员的声音、形象和表演能力被拆解为可调用的数据资源。技术由辅助创作工具转向内容生产主体后，原本以人为中心的创作关系开始发生变化。因此，AI进入文娱产业需要解决的不只是“技术能否实现”，还包括肖像、声音、表演权、署名权、收益分配和劳动主体性等问题。",
+      exam:"当技术能够复制人的表演能力时，真正需要重新讨论的不是“机器能不能替代人”，而是人的主体性与创作权利如何被重新确认。",
+      quote:"", framework:"", mockQuestion:"", relatedExams:[]
+    }
   ]},
   "05": { en:"MAY", events:[
-    { title:"2026中国网络文明大会：发布《人工智能应用伦理安全指引1.0》",
-      sub:"5月19-20日在南宁举行，分论坛发布AI伦理安全指引，聚焦人工智能赋能网络文明建设。",
-      theory:"AI伦理 · 网络文明 · 技术治理",
-      analysis:"“指引1.0”的编号本身就说明这是动态迭代的开始。将AI伦理纳入“网络文明”框架，意味着治理逻辑从“技术安全”扩展到“文明价值”——AI不仅要“不出事”，还要“向善”。",
-      exam:"考点「人工智能伦理」「网络文明建设」「技术治理的制度化」。",
-      quote:"", framework:"", mockQuestion:"", relatedExams:[] },
-    { title:"我国首颗文化传播卫星“有戏号”发射成功",
-      sub:"5月15日发射，定位为“空地一体互动文化传播卫星”，服务于文化内容的星地传播与互动。",
-      theory:"文化传播 · 传播基础设施 · 国家传播能力",
-      analysis:"“有戏号”的传播学意义不在于卫星技术本身，而在于它将“文化传播”提升到了基础设施层面。卫星意味着国家在物理层面为文化传播铺设了专属通道，文化传播从“内容竞争”进入“通道建设”阶段。",
-      exam:"适合「国际传播」「传播基础设施」「国家传播能力」方向。",
-      quote:"", framework:"", mockQuestion:"", relatedExams:[] },
-    { title:"电影《给阿嬷的情书》走红网络",
-      sub:"影片在大会期间被多次提及，以质朴叙事引发网络共鸣，成为“情感驱动传播”的又一案例。",
-      theory:"情感传播 · 口碑传播 · 文化认同",
-      analysis:"与1月的“呆呆杀猪宴”形成呼应：两者都依靠“非精致化”的真实情感获得传播势能。《给阿嬷的情书》没有依赖大宣发，而是通过观众的自发分享完成传播链条。",
-      exam:"可与「情感传播」「口碑与算法」「文化产品的传播逻辑」结合。",
-      quote:"", framework:"", mockQuestion:"", relatedExams:[] }
+    {
+      title:"阿迪达斯“进城办事”",
+      sub:"阿迪达斯通过具有城市生活感和年轻人日常语境的内容营销，将品牌传播嵌入真实城市场景，以生活化表达实现品牌年轻化传播。",
+      theory:"场景营销 · 品牌传播 · 广告创意 · 生活方式营销 · 品牌形象",
+      analysis:"“进城办事”式传播的核心并非单纯展示产品，而是把品牌嵌入消费者熟悉的城市生活场景，让消费者在具体生活经验中理解品牌。广告由“告诉消费者产品是什么”转向“让消费者在生活场景中感受品牌”。这体现了数字广告从产品中心向消费者生活方式中心转变：品牌需要寻找能够进入消费者日常经验的文化语境，通过内容、场景和情绪建立更具持续性的品牌关系。",
+      exam:"今天的品牌传播不是把广告塞进消费者的生活，而是让品牌本身成为消费者生活方式的一部分。",
+      quote:"", framework:"", mockQuestion:"", relatedExams:[]
+    },
+    {
+      title:"2026中国网络文明大会发布《人工智能应用伦理安全指引1.0》",
+      sub:"2026中国网络文明大会发布《人工智能应用伦理安全指引1.0》，围绕AI应用中的伦理、安全和责任问题建立规范框架。",
+      theory:"技术伦理 · AI治理 · 算法治理 · 技术向善 · 传播伦理",
+      analysis:"随着AI进入信息传播、公共服务、教育等领域，治理问题已经从“技术能不能实现”转向“技术应该如何使用”。AI的应用不仅涉及效率，也涉及公平、透明、隐私、人类控制和责任归属等社会问题。这意味着人工智能治理正在从单纯的技术安全治理走向技术、伦理、法律与社会治理相结合的综合治理，需要政府、平台、企业、行业和公众共同参与。",
+      exam:"当AI成为社会传播基础设施，治理逻辑也应从“技术能做什么”进一步转向“技术应该做什么”。",
+      quote:"", framework:"", mockQuestion:"", relatedExams:[]
+    },
+    {
+      title:"电影《给阿嬷的情书》走红网络",
+      sub:"《给阿嬷的情书》凭借潮汕方言、侨批文化和亲情叙事在网络形成口碑传播，并进一步走向海外市场，体现本土文化内容从地方传播走向文化出海。",
+      theory:"文化出海 · 国际传播 · 地方文化传播 · 文化折扣 · 情感共鸣 · 用户自传播",
+      analysis:"影片的传播价值在于没有为了“国际化”而消解地方特色，而是以潮汕方言、侨批、南洋记忆等高度地域化的文化符号形成内容辨识度，再借助亲情、乡愁、离散与守望等具有跨文化共通性的情感降低理解门槛。由此，本土文化不再只是传播障碍，也可以成为国际传播的内容资源。从传播路径看，影片还体现了社交媒体时代“用户即传播者”的特点。观众通过观后感、短视频和社交分享完成口碑扩散，使文化产品形成从内容生产到用户传播，再到海外传播的链条。",
+      exam:"文化出海不是把本土文化“翻译成外国文化”，而是以本土性建立文化辨识度，以共同情感寻找跨文化共鸣。",
+      quote:"", framework:"", mockQuestion:"", relatedExams:[]
+    },
+    {
+      title:"“奥德赛时期”刷屏朋友圈",
+      sub:"“奥德赛时期”成为青年自我描述和社交表达的新型网络话语，用一个流行符号概括毕业、求职、转型等阶段中的迷茫与焦虑。",
+      theory:"青年亚文化 · 媒介文化 · 符号互动 · 情绪传播 · 社会情绪",
+      analysis:"“奥德赛时期”的流行说明网络热词不仅承担信息传递功能，也承担情绪表达和身份认同功能。青年将复杂、模糊的生活处境压缩为一个具有故事性的文化符号，使个体经验获得可传播、可识别、可共享的表达形式。这一过程体现了数字媒介中的情绪公共化：私人焦虑通过网络话语被命名、分享和模仿，进而形成群体性的情绪共鸣。",
+      exam:"网络热词的流行不仅是语言创新，也是社会情绪的符号化表达——它让个体难以言说的处境获得了可共享的公共语言。",
+      quote:"", framework:"", mockQuestion:"", relatedExams:[]
+    }
   ]},
   "06": { en:"JUN", events:[
-    { title:"第五届全球媒体创新论坛：“恪守与重塑”",
-      sub:"6月10日在重庆举行，由中央广播电视总台与重庆市人民政府联合主办，聚焦AI时代媒体行业的守正与创新。",
-      theory:"媒体创新 · 新闻专业主义 · AI与新闻业",
-      analysis:"“恪守与重塑”这一主题精准概括了当前媒体行业的核心矛盾：恪守的是新闻真实性、公共性、专业性；重塑的是生产流程、分发逻辑、商业模式。",
-      exam:"核心考点「AI与新闻业」「新闻专业主义」「媒体融合的全球视野」。",
-      quote:"", framework:"", mockQuestion:"", relatedExams:[] },
-    { title:"论坛聚焦“人工智能为代表的新一轮科技革命”",
-      sub:"与会嘉宾围绕AI对媒体生产、分发、消费各环节的影响展开讨论，论坛被定位为“各国媒体深化交流、互学互鉴的重要平台”。",
-      theory:"智能传播 · 全球传播秩序 · 媒体合作",
-      analysis:"将全球媒体创新论坛放在“全球传播秩序”的框架下看，它不仅是技术讨论，也是话语实践。在西方主导的国际传播格局中，中国通过主办此类论坛，争夺的是“媒体未来”的定义权。",
-      exam:"可分析「全球传播秩序」「国际传播话语权」「技术标准与话语权」。",
-      quote:"", framework:"", mockQuestion:"", relatedExams:[] }
+    {
+      title:"第五届全球媒体创新论坛",
+      sub:"第五届全球媒体创新论坛围绕智能时代媒体使命、人工智能与媒体转型等议题展开，体现AI正在重新塑造新闻生产、传播和媒体组织。",
+      theory:"智能媒体 · 媒体转型 · 人机协同 · 新闻伦理 · 国际传播",
+      analysis:"AI正在介入新闻采集、内容生成、信息分发和用户互动，使媒体生产效率显著提升，同时也带来真实性、版权、偏见和责任归属等问题。媒体的核心竞争力因此不再只是“生产更多内容”，而是如何在技术效率与专业价值之间建立新的平衡。未来媒体转型的关键并非简单地“用AI替代人”，而是形成更加清晰的人机协同关系，让机器承担重复性、技术性工作，而新闻判断、价值选择和公共责任仍然由人承担。",
+      exam:"AI可以改变新闻生产的方式，却不能替代媒体的公共责任与价值判断。",
+      quote:"", framework:"", mockQuestion:"", relatedExams:[]
+    },
+    {
+      title:"美加墨世界杯中国元素与“东北超”出圈",
+      sub:"2026世界杯期间，中国球迷文化、东北足球表达及相关中国元素进入国际赛事传播语境，形成体育文化与地方文化交叉传播的现象。",
+      theory:"体育传播 · 国家软实力 · 大众体育 · 文化传播 · 参与式传播",
+      analysis:"世界杯不仅传播竞技结果，也传播围绕赛事形成的球迷文化、城市文化和大众表达。“东北超”等具有强烈地方文化特色的表达进入世界杯语境，说明大众体育能够成为地方文化和社会文化符号进入公共传播空间的重要渠道。从国家软实力角度看，体育传播的影响并不只来自竞技成绩，也来自球迷文化、生活方式、城市形象和文化表达。普通人的参与和创造，使体育传播从“观看赛事”进一步走向“共同创造体育文化”。",
+      exam:"体育软实力不只来自赛场成绩，也来自赛事之外由球迷、城市与普通人共同生产的文化表达。",
+      quote:"", framework:"", mockQuestion:"", relatedExams:[]
+    },
+    {
+      title:"世界杯联名营销：从“借势曝光”到“整合场景”",
+      sub:"世界杯期间，LABUBU、库迪、瑞幸、蒙牛等品牌通过IP联名、球队资源、限定产品、社交话题、线下场景等多触点进入赛事消费场景，体现体育IP驱动下的整合营销传播。",
+      theory:"整合营销传播IMC · 场景营销 · IP跨界 · 品牌资产 · 使用与满足",
+      analysis:"世界杯营销已经不只是购买赛事广告位，而是围绕超级体育IP整合产品、内容、社交媒体、线下门店、明星/球队和消费权益，形成多触点协同。广告作品只是传播链条的一部分，品牌真正需要整合的是消费者与赛事之间的情绪、场景和消费关系。从广告学角度看，这正体现了整合营销传播的逻辑：不同传播工具并非彼此孤立，而是围绕统一的品牌目标形成协同。消费者在“看球—讨论—购买—分享”的过程中不断接触品牌，从而实现从赛事注意力到品牌关系和品牌资产的转化。《现代广告通论》也将广告视为一系列有组织的策略性传播活动，并强调广告策略、媒介与创意之间的协同。",
+      exam:"世界杯营销的核心已经从“买赛事流量”转向“借超级IP经营消费者关系”，通过多触点整合实现从短期注意力到长期品牌资产的转化。",
+      quote:"", framework:"", mockQuestion:"", relatedExams:[]
+    }
   ]}
 };
 
+/* ============ 专题数据 ============ */
 const TOPICS = {
-  tech:{ name:"🔥 媒介技术与人工智能",
-    desc:"关注 AI、算法、平台技术如何重塑新闻生产与传播生态。",
-    events:[{month:"JAN",from:{month:"01",idx:2}},{month:"FEB",from:{month:"02",idx:1}},{month:"FEB",from:{month:"02",idx:2}},{month:"MAY",from:{month:"05",idx:0}},{month:"JUN",from:{month:"06",idx:1}}] },
-  international:{ name:"国际传播",
+  tech:{
+    name:"🔥 媒介技术与人工智能",
+    desc:"关注 AI、算法、平台技术如何重塑新闻生产与传播生态。所有涉及AI的热点均归入本专题。",
+    events:[
+      {month:"01",from:{month:"01",idx:0}},
+      {month:"01",from:{month:"01",idx:1}},
+      {month:"02",from:{month:"02",idx:0}},
+      {month:"02",from:{month:"02",idx:1}},
+      {month:"02",from:{month:"02",idx:3}},
+      {month:"03",from:{month:"03",idx:0}},
+      {month:"03",from:{month:"03",idx:2}},
+      {month:"04",from:{month:"04",idx:0}},
+      {month:"04",from:{month:"04",idx:1}},
+      {month:"05",from:{month:"05",idx:1}},
+      {month:"06",from:{month:"06",idx:0}}
+    ]
+  },
+  international:{
+    name:"国际传播",
     desc:"从文化出海、技术叙事到国际论坛，观察中国如何在全球传播格局中建构话语权。",
-    events:[{month:"FEB",from:{month:"02",idx:1}},{month:"MAY",from:{month:"05",idx:1}},{month:"JUN",from:{month:"06",idx:0}},{month:"JUN",from:{month:"06",idx:1}}] },
-  opinion:{ name:"舆论与舆情",
-    desc:"分析热点事件的舆论生成机制、情感传播路径与平台治理逻辑。",
-    events:[{month:"JAN",from:{month:"01",idx:1}},{month:"JAN",from:{month:"01",idx:3}},{month:"FEB",from:{month:"02",idx:0}}] },
-  ethics:{ name:"新闻伦理与法规",
-    desc:"聚焦真实性、AI标识、把关机制等伦理与法规议题。",
-    events:[{month:"JAN",from:{month:"01",idx:2}},{month:"FEB",from:{month:"02",idx:2}},{month:"MAY",from:{month:"05",idx:0}}] },
-  marxism:{ name:"马克思主义新闻观",
-    desc:"从政策论坛、主流媒体转型等事件切入。",
-    events:[{month:"MAR",from:{month:"03",idx:0}},{month:"MAR",from:{month:"03",idx:1}}] },
-  sports:{ name:"体育赛事类",
-    desc:"关注大型体育赛事中的传播策略、媒介事件与民族认同建构。（内容筹备中）",
-    events:[] },
-  ads:{ name:"🔥 广告与品牌营销",
-    desc:"从情绪消费、文创爆款到品牌营销事件，观察消费文化与传播的互动。",
-    events:[{month:"JAN",from:{month:"01",idx:0}}] },
-  entertainment:{ name:"文娱类",
-    desc:"涵盖影视、综艺、短视频、文化节目等文娱内容引发的传播现象。",
-    events:[{month:"JAN",from:{month:"01",idx:3}},{month:"APR",from:{month:"04",idx:0}},{month:"MAY",from:{month:"05",idx:2}}] }
+    events:[
+      {month:"02",from:{month:"02",idx:0}},
+      {month:"02",from:{month:"02",idx:2}},
+      {month:"05",from:{month:"05",idx:2}},
+      {month:"06",from:{month:"06",idx:0}},
+      {month:"06",from:{month:"06",idx:1}}
+    ]
+  },
+  ethics:{
+    name:"🔥 新闻伦理法规及有关文件",
+    desc:"涵盖马克思主义新闻观、党性原则、新闻道德、行业规范，以及网络治理政策、白皮书、管理文件等。所有涉及政策、法规、文件类的热点均归入本专题。",
+    events:[
+      {month:"03",from:{month:"03",idx:1}},
+      {month:"04",from:{month:"04",idx:0}},
+      {month:"05",from:{month:"05",idx:1}}
+    ]
+  },
+  sports:{
+    name:"体育赛事类",
+    desc:"关注大型体育赛事中的传播策略、媒介事件与民族认同建构。",
+    events:[
+      {month:"02",from:{month:"02",idx:2}},
+      {month:"06",from:{month:"06",idx:1}},
+      {month:"06",from:{month:"06",idx:2}}
+    ]
+  },
+  ads:{
+    name:"🔥 广告与品牌营销",
+    desc:"从情绪消费、文创爆款到品牌营销事件，观察消费文化与传播的互动。涵盖整合营销传播、广告创意、广告效果等高频考点。",
+    events:[
+      {month:"05",from:{month:"05",idx:0}},
+      {month:"06",from:{month:"06",idx:2}}
+    ]
+  },
+  entertainment:{
+    name:"🔥 文娱类",
+    desc:"涵盖影视、综艺、短视频、网络爆火事件、城市传播与文旅等文娱内容引发的传播现象与文化讨论。网络上爆火的、比较轻量化的热点都归入本专题。",
+    events:[
+      {month:"03",from:{month:"03",idx:3}},
+      {month:"05",from:{month:"05",idx:2}},
+      {month:"05",from:{month:"05",idx:3}}
+    ]
+  }
 };
 
 const MONTH_ORDER = ["01","02","03","04","05","06"];
@@ -1580,7 +1654,7 @@ const MONTH_LABELS = {
   "07":"JUL","08":"AUG","09":"SEP","10":"OCT","11":"NOV","12":"DEC"
 };
 
-/* 工具 */
+/* ============ 工具 ============ */
 function esc(s){
   return String(s == null ? "" : s)
     .replace(/&/g,"&amp;").replace(/</g,"&lt;")
@@ -1632,14 +1706,13 @@ function getNotesByMonth(m){
   return getNotes().filter(n => n.month === m);
 }
 
-/* 渲染热点卡片 */
+/* ============ 渲染卡片 ============ */
 function renderEventCard(ev, monthKey, idx, showIdx){
   const key = eventKey(monthKey, idx);
   const marked = isBookmarked(monthKey, idx);
   const monthLabel = HOTSPOTS[monthKey] ? HOTSPOTS[monthKey].en : monthKey;
 
   let extraHTML = "";
-  if(ev.quote) extraHTML += `<div class="quote-block">${esc(ev.quote)}</div>`;
   if(ev.framework) extraHTML += `<div class="detail-block" style="margin-top:14px;"><span class="detail-label">答题框架</span><div class="framework-block">${esc(ev.framework)}</div></div>`;
   if(ev.mockQuestion) extraHTML += `<div class="mock-block">${esc(ev.mockQuestion)}</div>`;
   if(ev.relatedExams && ev.relatedExams.length){
@@ -1685,10 +1758,8 @@ function renderEventCard(ev, monthKey, idx, showIdx){
   `;
 }
 
-/* 渲染笔记卡片（首页笔记页用的版本，带编辑/删除） */
 function renderNoteCard(note, showActions){
   let extraHTML = "";
-  if(note.quote) extraHTML += `<div class="quote-block">${esc(note.quote)}</div>`;
   if(note.framework) extraHTML += `<div class="detail-block" style="margin-top:14px;"><span class="detail-label">答题框架</span><div class="framework-block">${esc(note.framework)}</div></div>`;
   if(note.mockQuestion) extraHTML += `<div class="mock-block">${esc(note.mockQuestion)}</div>`;
 
@@ -1737,7 +1808,7 @@ function renderNoteCard(note, showActions){
   `;
 }
 
-/* 每月热点 */
+/* ============ 每月热点 ============ */
 function renderMonthly(){
   const trackEl  = document.getElementById("tabTrack");
   const panelsEl = document.getElementById("monthPanels");
@@ -1787,10 +1858,11 @@ function switchMonth(key){
   applySavedHighlights();
 }
 
-/* 专题 */
+/* ============ 专题 ============ */
 function renderTopics(){
   const catGrid = document.getElementById("catGrid");
-  catGrid.innerHTML = Object.keys(TOPICS).map(key => {
+  const topicKeys = Object.keys(TOPICS).filter(k => TOPICS[k].name);
+  catGrid.innerHTML = topicKeys.map(key => {
     const t = TOPICS[key];
     return `<button class="cat-card" data-topic="${key}">
       <h3>${esc(t.name)}</h3>
@@ -1811,7 +1883,7 @@ function renderTopics(){
     topicMetaEl.innerHTML    = `共 <b>${t.events.length}</b> 条热点`;
 
     if(!t.events.length){
-      topicEventsEl.innerHTML = `<div class="placeholder-note">这个专题的内容正在筹备中。</div>`;
+      topicEventsEl.innerHTML = `<div class="placeholder-note">这个专题的内容正在筹备中，后续会补充热点事件与考点解析。</div>`;
     } else {
       topicEventsEl.innerHTML = t.events.map(ref => {
         const src = HOTSPOTS[ref.from.month];
@@ -1832,7 +1904,7 @@ function renderTopics(){
   });
 }
 
-/* 我的收藏 */
+/* ============ 我的收藏 ============ */
 let bmCurrentTab = "cards";
 
 function renderBookmarks(){
@@ -1913,7 +1985,6 @@ function renderBookmarks(){
       let monthLabel = mInfo ? mInfo.en : (MONTH_LABELS[item.month] || item.month);
       let title = ev ? ev.title : "";
 
-      /* 可能是笔记里的高亮 */
       if(!ev && item.key.indexOf("note-") === 0){
         const noteId = item.key.replace("note-", "");
         const note = getNotes().find(n => n.id === noteId);
@@ -1942,7 +2013,7 @@ function renderBookmarks(){
   setTimeout(applySavedHighlights, 50);
 }
 
-/* 我的笔记页 */
+/* ============ 我的笔记 ============ */
 function renderNotes(){
   const wrap = document.getElementById("noteContent");
   const metaEl = document.getElementById("noteMeta");
@@ -1967,7 +2038,7 @@ function renderNotes(){
   setTimeout(applySavedHighlights, 50);
 }
 
-/* 笔记编辑器 */
+/* ============ 笔记编辑器 ============ */
 let editingNoteId = null;
 
 function openNoteEditor(note){
@@ -1979,7 +2050,6 @@ function openNoteEditor(note){
   document.getElementById("neTheory").value = note ? (note.theory || "") : "";
   document.getElementById("neAnalysis").value = note ? (note.analysis || "") : "";
   document.getElementById("neExam").value = note ? (note.exam || "") : "";
-  document.getElementById("neQuote").value = note ? (note.quote || "") : "";
   document.getElementById("neFramework").value = note ? (note.framework || "") : "";
   document.getElementById("neMock").value = note ? (note.mockQuestion || "") : "";
   document.getElementById("noteEditor").classList.add("is-open");
@@ -1991,7 +2061,6 @@ function closeNoteEditor(){
   editingNoteId = null;
 }
 
-/* 导出/导入 */
 function exportData(){
   const data = {
     version: 1,
@@ -2070,7 +2139,6 @@ document.getElementById("noteEditorSave").addEventListener("click", () => {
     theory: document.getElementById("neTheory").value.trim(),
     analysis: document.getElementById("neAnalysis").value.trim(),
     exam: document.getElementById("neExam").value.trim(),
-    quote: document.getElementById("neQuote").value.trim(),
     framework: document.getElementById("neFramework").value.trim(),
     mockQuestion: document.getElementById("neMock").value.trim(),
     createdAt: editingNoteId ? (getNotes().find(n => n.id === editingNoteId)?.createdAt || Date.now()) : Date.now()
@@ -2093,9 +2161,7 @@ document.getElementById("noteEditorSave").addEventListener("click", () => {
   applySavedHighlights();
 });
 
-/* 卡片事件代理 */
 document.addEventListener("click", e => {
-  /* 收藏页 tab */
   const bmTab = e.target.closest("[data-bm-tab]");
   if(bmTab){
     bmCurrentTab = bmTab.dataset.bmTab;
@@ -2104,7 +2170,6 @@ document.addEventListener("click", e => {
     return;
   }
 
-  /* 移除高亮 */
   const removeHl = e.target.closest("[data-hl-remove]");
   if(removeHl){
     const raw = removeHl.dataset.hlRemove;
@@ -2124,7 +2189,6 @@ document.addEventListener("click", e => {
     return;
   }
 
-  /* 笔记编辑 */
   const editBtn = e.target.closest("[data-note-edit]");
   if(editBtn){
     e.stopPropagation();
@@ -2133,7 +2197,6 @@ document.addEventListener("click", e => {
     return;
   }
 
-  /* 笔记删除 */
   const delBtn = e.target.closest("[data-note-del]");
   if(delBtn){
     e.stopPropagation();
@@ -2141,7 +2204,6 @@ document.addEventListener("click", e => {
     const id = delBtn.dataset.noteDel;
     let notes = getNotes().filter(n => n.id !== id);
     setNotes(notes);
-    /* 清理对应的高亮 */
     const hlObj = getHighlights();
     delete hlObj["note-" + id];
     setHighlights(hlObj);
@@ -2153,7 +2215,6 @@ document.addEventListener("click", e => {
     return;
   }
 
-  /* 卡片展开 */
   const header = e.target.closest(".event-header");
   if(header){
     const card = header.closest(".event-card");
@@ -2170,7 +2231,6 @@ document.addEventListener("click", e => {
     return;
   }
 
-  /* 收藏整卡 */
   const bm = e.target.closest("[data-bookmark]");
   if(bm){
     e.stopPropagation();
@@ -2195,7 +2255,6 @@ document.addEventListener("click", e => {
     return;
   }
 
-  /* 理论标签 */
   const th = e.target.closest("[data-theory]");
   if(th){
     e.stopPropagation();
@@ -2212,7 +2271,6 @@ document.addEventListener("keydown", e => {
   header.click();
 });
 
-/* 理论弹窗 */
 function showTheoryPopup(el){
   const popup = document.getElementById("theoryPopup");
   const name = el.dataset.theory;
@@ -2241,7 +2299,6 @@ window.addEventListener("scroll", () => {
   document.getElementById("theoryPopup").classList.remove("is-open");
 }, true);
 
-/* 打卡 */
 function todayKey(){
   const d = new Date();
   return d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
@@ -2270,7 +2327,6 @@ function renderCheckin(){
   }catch(e){ el.classList.add("hidden"); }
 }
 
-/* 首页计数 */
 function updateHomeCounts(){
   const cardList = getBookmarks();
   const hlObj = getHighlights();
@@ -2284,7 +2340,6 @@ function updateHomeCounts(){
   if(noteCountEl) noteCountEl.textContent = `${getNotes().length} 条笔记`;
 }
 
-/* 高亮应用 */
 function highlightTextInElement(root, text){
   if(!text || text.length < 2) return false;
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
@@ -2334,7 +2389,6 @@ function applySavedHighlights(){
   });
 }
 
-/* 划词气泡 */
 (function selectionBubble(){
   const bubble = document.getElementById("hlBubble");
   const toggleBtn = bubble.querySelector("[data-hl-action]");
@@ -2462,7 +2516,6 @@ function applySavedHighlights(){
   window.addEventListener("scroll", hideBubble, true);
 })();
 
-/* 搜索 */
 (function searchModule(){
   const trigger = document.getElementById("searchTrigger");
   const overlay = document.getElementById("searchOverlay");
@@ -2498,7 +2551,7 @@ function applySavedHighlights(){
       const m = HOTSPOTS[mKey];
       const monthMatches = [];
       m.events.forEach((ev, i) => {
-        const haystack = [ev.title, ev.sub, ev.analysis, ev.exam, ev.theory, ev.quote, ev.mockQuestion]
+        const haystack = [ev.title, ev.sub, ev.analysis, ev.exam, ev.theory]
           .filter(Boolean).join(" ").toLowerCase();
         if(haystack.indexOf(lower) >= 0) monthMatches.push({ ev, i });
       });
@@ -2547,7 +2600,6 @@ function applySavedHighlights(){
   });
 })();
 
-/* 主题 */
 (function themeSwitcher(){
   const floater = document.getElementById("themeFloat");
   const btns = floater.querySelectorAll("button[data-set-theme]");
@@ -2660,7 +2712,6 @@ function applySavedHighlights(){
   });
 })();
 
-/* 回到顶部 */
 (function scrollModule(){
   const backBtn = document.getElementById("backToTop");
   function onScroll(){
@@ -2673,7 +2724,6 @@ function applySavedHighlights(){
   backBtn.addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
 })();
 
-/* 反馈 */
 (function feedback(){
   const toggle = document.getElementById("feedbackToggle");
   const panel  = document.getElementById("feedbackPanel");
@@ -2706,7 +2756,6 @@ function applySavedHighlights(){
   });
 })();
 
-/* 路由 */
 function showView(viewId){
   const views   = document.querySelectorAll(".view");
   const backBtn = document.getElementById("backBtn");
@@ -2726,7 +2775,6 @@ document.addEventListener("click", e => {
   showView(trigger.dataset.goto);
 });
 
-/* 初始化 */
 renderMonthly();
 renderTopics();
 renderBookmarks();
